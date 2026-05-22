@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Promoters</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:#020617;
+      color:white;
+      padding:30px;
+    }
+
+    h1{
+      font-size:36px;
+      margin-bottom:8px;
+    }
+
+    p{
+      color:#94a3b8;
+      margin-bottom:25px;
+    }
+
+    form{
+      background:#0f172a;
+      border:1px solid rgba(255,255,255,.1);
+      padding:20px;
+      border-radius:20px;
+      margin-bottom:25px;
+      display:grid;
+      gap:12px;
+    }
+
+    input{
+      padding:14px;
+      border:0;
+      border-radius:12px;
+      background:#1e293b;
+      color:white;
+      font-size:16px;
+      outline:none;
+    }
+
+    button{
+      border:0;
+      border-radius:12px;
+      padding:12px 14px;
+      cursor:pointer;
+      font-weight:bold;
+      color:white;
+    }
+
+    .btn-cadastrar{
+      background:#22c55e;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      position:relative;
+      overflow:hidden;
+      background:#0f172a;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:22px;
+      padding:22px;
+      transition:.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 12px 30px rgba(0,0,0,.35);
+    }
+
+    .card.top{
+      grid-column:span 2;
+      min-height:320px;
+      background:linear-gradient(135deg,#0f172a,#064e3b,#0f172a);
+      border:1px solid rgba(34,197,94,.25);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:0;
+      background:radial-gradient(circle at top right, rgba(34,197,94,.18), transparent 35%);
+      transition:.3s;
+    }
+
+    .card:hover::before{
+      opacity:1;
+    }
+
+    .conteudo{
+      position:relative;
+      z-index:2;
+    }
+
+    .topo{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+    }
+
+    .icone{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:rgba(255,255,255,.1);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+    }
+
+    .status{
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:12px;
+      background:rgba(34,197,94,.2);
+      color:#86efac;
+      font-weight:bold;
+    }
+
+    .nome{
+      font-size:23px;
+      font-weight:bold;
+      margin-bottom:8px;
+    }
+
+    .info{
+      color:#cbd5e1;
+      font-size:14px;
+      margin-bottom:6px;
+    }
+
+    .barra{
+      width:100%;
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      margin-top:15px;
+      overflow:hidden;
+    }
+
+    .progresso{
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,#22c55e,#06b6d4);
+      transition:.3s;
+    }
+
+    .tags{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:15px 0;
+    }
+
+    .tag{
+      font-size:12px;
+      padding:6px 9px;
+      border-radius:8px;
+      background:rgba(255,255,255,.1);
+      color:#cbd5e1;
+    }
+
+    .acoes{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    .mais{
+      background:#22c55e;
+    }
+
+    .menos{
+      background:#f59e0b;
+    }
+
+    .excluir{
+      background:#ef4444;
+    }
+
+    @media(max-width:800px){
+      body{
+        padding:20px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .card.top{
+        grid-column:span 1;
+      }
+    }.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.stat-card{
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:18px;
+}
+
+.stat-card span{
+  color:#94a3b8;
+  font-size:13px;
+}
+
+.stat-card strong{
+  display:block;
+  font-size:26px;
+  margin-top:6px;
+}
+  </style>
+</head>
+
+<body>
+
+  <h1>Painel de Promoters</h1>
+  <p>Ranking conectado ao Supabase com posts, metas e status automático.</p>
+
+  <form id="form-promoter">
+    <input type="text" id="nome" placeholder="Nome do promoter" required>
+    <input type="text" id="instagram" placeholder="@instagram">
+    <input type="text" id="telefone" placeholder="Telefone">
+    <button class="btn-cadastrar" type="submit">Cadastrar promoter</button>
+  </form>
+<div class="stats" id="stats"></div>
+  <div class="grid" id="lista-promoters"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabase.js"></script>
+
+  <script>
+    async function carregarPromoters(){
+      const { data, error } = await db
+        .from('promoters')
+        .select('*')
+        .order('posts_feitos', { ascending: false })
+
+      if(error){
+        console.log(error)
+        alert("Erro ao carregar promoters")
+        return
+      }
+
+      const lista = document.getElementById('lista-promoters')
+      lista.innerHTML = ""
+const totalPromoters = data.length
+const totalPosts = data.reduce((soma, p) => soma + p.posts_feitos, 0)
+const melhorPromoter = data[0]?.nome || "-"
+const media = totalPromoters > 0 ? Math.floor(totalPosts / totalPromoters) : 0
+
+document.getElementById("stats").innerHTML = `
+  <div class="stat-card">
+    <span>Total de promoters</span>
+    <strong>${totalPromoters}</strong>
+  </div>
+
+  <div class="stat-card">
+    <span>Total de posts</span>
+    <strong>${totalPosts}</strong>
+  </div>
+
+  <div class="stat-card">
+    <span>Melhor promoter</span>
+    <strong>${melhorPromoter}</strong>
+  </div>
+
+  <div class="stat-card">
+    <span>Média de posts</span>
+    <strong>${media}</strong>
+  </div>
+`
+      data.forEach((promoter, index) => {
+        const percentual = Math.floor((promoter.posts_feitos / promoter.meta_posts) * 100) || 0
+
+        const status =
+          percentual >= 100 ? "🏆 VIP" :
+          percentual >= 70 ? "🔥 Camarote" :
+          "🎟️ Pista"
+
+        const icone =
+          index === 0 ? "🏆" :
+          percentual >= 70 ? "📈" :
+          "📸"
+
+        lista.innerHTML += `
+          <div class="card ${index === 0 ? 'top' : ''}">
+            <div class="conteudo">
+
+              <div class="topo">
+                <div class="icone">${icone}</div>
+                <div class="status">${status}</div>
+              </div>
+
+              <div class="nome">${promoter.nome}</div>
+
+              <div class="info">Instagram: ${promoter.instagram || '-'}</div>
+              <div class="info">Telefone: ${promoter.telefone || '-'}</div>
+              <div class="info">Posts: ${promoter.posts_feitos}</div>
+              <div class="info">Meta: ${promoter.meta_posts}</div>
+
+              <div class="barra">
+                <div class="progresso" style="width:${percentual}%"></div>
+              </div>
+
+              <div class="tags">
+                <span class="tag">#${percentual}%</span>
+                <span class="tag">#ranking ${index + 1}</span>
+                <span class="tag">#promoter</span>
+              </div>
+
+              <div class="acoes">
+                <button class="mais" onclick="alterarPosts('${promoter.id}', ${promoter.posts_feitos + 1})">
+                  +1 post
+                </button>
+
+                <button class="menos" onclick="alterarPosts('${promoter.id}', ${Math.max(promoter.posts_feitos - 1, 0)})">
+                  -1 post
+                </button>
+
+                <button class="excluir" onclick="excluirPromoter('${promoter.id}')">
+                  Excluir
+                </button>
+              </div>
+
+            </div>
+          </div>
+        `
+      })
+    }
+
+    async function alterarPosts(id, novoValor){
+      const { error } = await db
+        .from('promoters')
+        .update({ posts_feitos: novoValor })
+        .eq('id', id)
+
+      if(error){
+        alert("Erro ao atualizar posts")
+        console.log(error)
+        return
+      }
+
+      carregarPromoters()
+    }
+
+    async function excluirPromoter(id){
+      const confirmar = confirm("Tem certeza que deseja excluir esse promoter?")
+
+      if(!confirmar) return
+
+      const { error } = await db
+        .from('promoters')
+        .delete()
+        .eq('id', id)
+
+      if(error){
+        alert("Erro ao excluir")
+        console.log(error)
+        return
+      }
+
+      carregarPromoters()
+    }
+
+    const form = document.getElementById('form-promoter')
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const nome = document.getElementById('nome').value
+      const instagram = document.getElementById('instagram').value
+      const telefone = document.getElementById('telefone').value
+
+      const { error } = await db
+        .from('promoters')
+        .insert([
+          {
+            nome,
+            instagram,
+            telefone
+          }
+        ])
+
+      if(error){
+        alert('Erro ao cadastrar')
+        console.log(error)
+        return
+      }
+
+      form.reset()
+      carregarPromoters()
+    })
+
+    carregarPromoters()
+  </script>
+
+</body>
+</html>
