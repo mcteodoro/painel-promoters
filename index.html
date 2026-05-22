@@ -1,424 +1,367 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel de Promoters</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Promoters</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#020617;color:white;padding:35px}
+h1{font-size:46px;margin-bottom:8px}
+.sub{color:#94a3b8;margin-bottom:25px}
 
-    body{
-      min-height:100vh;
-      background:#020617;
-      color:white;
-      padding:30px;
-    }
+form,.card,.stat-card{
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:20px;
+}
 
-    h1{
-      font-size:36px;
-      margin-bottom:8px;
-    }
+form{display:grid;gap:12px;margin-bottom:25px}
 
-    p{
-      color:#94a3b8;
-      margin-bottom:25px;
-    }
+input{
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  background:#1e293b;
+  color:white;
+}
 
-    form{
-      background:#0f172a;
-      border:1px solid rgba(255,255,255,.1);
-      padding:20px;
-      border-radius:20px;
-      margin-bottom:25px;
-      display:grid;
-      gap:12px;
-    }
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+}
 
-    input{
-      padding:14px;
-      border:0;
-      border-radius:12px;
-      background:#1e293b;
-      color:white;
-      font-size:16px;
-      outline:none;
-    }
+.btn-cadastrar{background:#22c55e}
 
-    button{
-      border:0;
-      border-radius:12px;
-      padding:12px 14px;
-      cursor:pointer;
-      font-weight:bold;
-      color:white;
-    }
-
-    .btn-cadastrar{
-      background:#22c55e;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
-      gap:20px;
-    }
-
-    .card{
-      position:relative;
-      overflow:hidden;
-      background:#0f172a;
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:22px;
-      padding:22px;
-      transition:.3s;
-    }
-
-    .card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 12px 30px rgba(0,0,0,.35);
-    }
-
-    .card.top{
-      grid-column:span 2;
-      min-height:320px;
-      background:linear-gradient(135deg,#0f172a,#064e3b,#0f172a);
-      border:1px solid rgba(34,197,94,.25);
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      opacity:0;
-      background:radial-gradient(circle at top right, rgba(34,197,94,.18), transparent 35%);
-      transition:.3s;
-    }
-
-    .card:hover::before{
-      opacity:1;
-    }
-
-    .conteudo{
-      position:relative;
-      z-index:2;
-    }
-
-    .topo{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:16px;
-    }
-
-    .icone{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      background:rgba(255,255,255,.1);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:20px;
-    }
-
-    .status{
-      padding:6px 12px;
-      border-radius:999px;
-      font-size:12px;
-      background:rgba(34,197,94,.2);
-      color:#86efac;
-      font-weight:bold;
-    }
-
-    .nome{
-      font-size:23px;
-      font-weight:bold;
-      margin-bottom:8px;
-    }
-
-    .info{
-      color:#cbd5e1;
-      font-size:14px;
-      margin-bottom:6px;
-    }
-
-    .barra{
-      width:100%;
-      height:10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      margin-top:15px;
-      overflow:hidden;
-    }
-
-    .progresso{
-      height:100%;
-      border-radius:999px;
-      background:linear-gradient(90deg,#22c55e,#06b6d4);
-      transition:.3s;
-    }
-
-    .tags{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin:15px 0;
-    }
-
-    .tag{
-      font-size:12px;
-      padding:6px 9px;
-      border-radius:8px;
-      background:rgba(255,255,255,.1);
-      color:#cbd5e1;
-    }
-
-    .acoes{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
-
-    .mais{
-      background:#22c55e;
-    }
-
-    .menos{
-      background:#f59e0b;
-    }
-
-    .excluir{
-      background:#ef4444;
-    }
-
-    @media(max-width:800px){
-      body{
-        padding:20px;
-      }
-
-      .grid{
-        grid-template-columns:1fr;
-      }
-
-      .card.top{
-        grid-column:span 1;
-      }
-    }.stats{
+.stats{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:15px;
   margin-bottom:25px;
 }
 
-.stat-card{
-  background:#0f172a;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:18px;
-  padding:18px;
+.stat-card span{color:#94a3b8;font-size:13px}
+.stat-card strong{display:block;font-size:28px;margin-top:5px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
 }
 
-.stat-card span{
+.card{
+  position:relative;
+  overflow:hidden;
+  backdrop-filter:blur(12px);
+}
+
+.card.top{
+  background:linear-gradient(135deg,#0f172a,#064e3b);
+}
+
+.badge{
+  position:absolute;
+  right:18px;
+  top:18px;
+  background:rgba(34,197,94,.2);
+  color:#86efac;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:12px;
+}
+
+.icon{font-size:28px;margin-bottom:15px}
+.card h2{font-size:30px;margin-bottom:10px}
+.card p{color:#cbd5e1;margin-bottom:6px}
+
+.progresso{
+  height:10px;
+  background:rgba(255,255,255,.08);
+  border-radius:999px;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.barra{
+  height:100%;
+  background:linear-gradient(90deg,#22c55e,#06b6d4);
+}
+
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.tag{background:rgba(255,255,255,.1);padding:7px 10px;border-radius:10px;font-size:12px}
+
+.print-box{margin-top:15px}
+.print-box span{display:block;color:#94a3b8;font-size:13px;margin-bottom:8px}
+
+.print-img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  margin-top:10px;
+  transition:.35s;
+  cursor:pointer;
+}
+
+.print-img:hover{
+  transform:scale(1.02);
+  box-shadow:0 15px 35px rgba(0,0,0,.35);
+}
+
+.sem-print{
+  margin-top:15px;
   color:#94a3b8;
   font-size:13px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,.06);
 }
 
-.stat-card strong{
-  display:block;
-  font-size:26px;
-  margin-top:6px;
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.green{background:#22c55e}
+.yellow{background:#eab308}
+.red{background:#fb7185}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  z-index:9999;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+  backdrop-filter:blur(8px);
 }
-  </style>
+
+.modal img{
+  width:auto;
+  max-width:95vw;
+  max-height:92vh;
+  border-radius:22px;
+  object-fit:contain;
+  box-shadow:0 25px 60px rgba(0,0,0,.55);
+  animation:zoom .25s ease;
+}
+
+.fechar-modal{
+  position:absolute;
+  top:25px;
+  right:35px;
+  color:white;
+  font-size:42px;
+  cursor:pointer;
+  z-index:10000;
+}
+
+@keyframes zoom{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+@media(max-width:768px){
+  body{padding:20px}
+  h1{font-size:34px}
+}
+</style>
 </head>
 
 <body>
 
-  <h1>Painel de Promoters</h1>
-  <p>Ranking conectado ao Supabase com posts, metas e status automático.</p>
+<h1>Painel de Promoters</h1>
+<p class="sub">Ranking conectado ao Supabase com prints, posts e metas.</p>
 
-  <form id="form-promoter">
-    <input type="text" id="nome" placeholder="Nome do promoter" required>
-    <input type="text" id="instagram" placeholder="@instagram">
-    <input type="text" id="telefone" placeholder="Telefone">
-    <button class="btn-cadastrar" type="submit">Cadastrar promoter</button>
-  </form>
+<form id="form-promoter">
+  <input type="text" id="nome" placeholder="Nome do promoter" required>
+  <input type="text" id="instagram" placeholder="@instagram">
+  <input type="text" id="telefone" placeholder="Telefone">
+  <input type="file" id="print" accept="image/*">
+  <button class="btn-cadastrar" type="submit">Cadastrar promoter</button>
+</form>
+
 <div class="stats" id="stats"></div>
-  <div class="grid" id="lista-promoters"></div>
+<div class="grid" id="lista-promoters"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="supabase.js"></script>
+<div id="modal" class="modal">
+  <span class="fechar-modal">&times;</span>
+  <img id="imagem-modal">
+</div>
 
-  <script>
-    async function carregarPromoters(){
-      const { data, error } = await db
-        .from('promoters')
-        .select('*')
-        .order('posts_feitos', { ascending: false })
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="supabase.js"></script>
 
-      if(error){
-        console.log(error)
-        alert("Erro ao carregar promoters")
-        return
-      }
+<script>
+async function carregarPromoters(){
+  const { data, error } = await db
+    .from("promoters")
+    .select("*")
+    .order("posts_feitos", { ascending:false })
 
-      const lista = document.getElementById('lista-promoters')
-      lista.innerHTML = ""
-const totalPromoters = data.length
-const totalPosts = data.reduce((soma, p) => soma + p.posts_feitos, 0)
-const melhorPromoter = data[0]?.nome || "-"
-const media = totalPromoters > 0 ? Math.floor(totalPosts / totalPromoters) : 0
+  if(error){
+    console.log(error)
+    alert("Erro ao carregar promoters")
+    return
+  }
 
-document.getElementById("stats").innerHTML = `
-  <div class="stat-card">
-    <span>Total de promoters</span>
-    <strong>${totalPromoters}</strong>
-  </div>
+  const lista = document.getElementById("lista-promoters")
+  lista.innerHTML = ""
 
-  <div class="stat-card">
-    <span>Total de posts</span>
-    <strong>${totalPosts}</strong>
-  </div>
+  const totalPromoters = data.length
+  const totalPosts = data.reduce((soma,p) => soma + (p.posts_feitos || 0), 0)
+  const melhorPromoter = data[0]?.nome || "-"
+  const media = totalPromoters > 0 ? Math.floor(totalPosts / totalPromoters) : 0
 
-  <div class="stat-card">
-    <span>Melhor promoter</span>
-    <strong>${melhorPromoter}</strong>
-  </div>
+  document.getElementById("stats").innerHTML = `
+    <div class="stat-card"><span>Total de promoters</span><strong>${totalPromoters}</strong></div>
+    <div class="stat-card"><span>Total de posts</span><strong>${totalPosts}</strong></div>
+    <div class="stat-card"><span>Melhor promoter</span><strong>${melhorPromoter}</strong></div>
+    <div class="stat-card"><span>Média de posts</span><strong>${media}</strong></div>
+  `
 
-  <div class="stat-card">
-    <span>Média de posts</span>
-    <strong>${media}</strong>
-  </div>
-`
-      data.forEach((promoter, index) => {
-        const percentual = Math.floor((promoter.posts_feitos / promoter.meta_posts) * 100) || 0
+  data.forEach((promoter,index) => {
+    const percentual = Math.floor(((promoter.posts_feitos || 0) / (promoter.meta_posts || 10)) * 100) || 0
+    const medalha = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "🎯"
+    const status = percentual >= 100 ? "VIP" : percentual >= 70 ? "Camarote" : "Pista"
 
-        const status =
-          percentual >= 100 ? "🏆 VIP" :
-          percentual >= 70 ? "🔥 Camarote" :
-          "🎟️ Pista"
+    lista.innerHTML += `
+      <div class="card ${index === 0 ? "top" : ""}">
+        <div class="badge">${status}</div>
+        <div class="icon">${medalha}</div>
 
-        const icone =
-          index === 0 ? "🏆" :
-          percentual >= 70 ? "📈" :
-          "📸"
+        <h2>${promoter.nome}</h2>
+        <p>Instagram: ${promoter.instagram || "-"}</p>
+        <p>Telefone: ${promoter.telefone || "-"}</p>
+        <p>Posts: ${promoter.posts_feitos || 0}</p>
+        <p>Meta: ${promoter.meta_posts || 10}</p>
 
-        lista.innerHTML += `
-          <div class="card ${index === 0 ? 'top' : ''}">
-            <div class="conteudo">
+        <div class="progresso">
+          <div class="barra" style="width:${percentual}%"></div>
+        </div>
 
-              <div class="topo">
-                <div class="icone">${icone}</div>
-                <div class="status">${status}</div>
+        <div class="tags">
+          <div class="tag">#${percentual}%</div>
+          <div class="tag">#ranking ${index + 1}</div>
+          <div class="tag">#promoter</div>
+        </div>
+
+        ${
+          promoter.print_url
+            ? `
+              <div class="print-box">
+                <span>Print enviado</span>
+                <img class="print-img" src="${promoter.print_url}" onclick="abrirModal('${promoter.print_url}')">
               </div>
+            `
+            : `
+              <div class="sem-print">Nenhum print enviado</div>
+            `
+        }
 
-              <div class="nome">${promoter.nome}</div>
+        <div class="actions">
+          <button class="green" onclick="somarPost('${promoter.id}', ${promoter.posts_feitos || 0})">+1 post</button>
+          <button class="yellow" onclick="diminuirPost('${promoter.id}', ${promoter.posts_feitos || 0})">-1 post</button>
+          <button class="red" onclick="excluir('${promoter.id}')">Excluir</button>
+        </div>
+      </div>
+    `
+  })
+}
 
-              <div class="info">Instagram: ${promoter.instagram || '-'}</div>
-              <div class="info">Telefone: ${promoter.telefone || '-'}</div>
-              <div class="info">Posts: ${promoter.posts_feitos}</div>
-              <div class="info">Meta: ${promoter.meta_posts}</div>
+async function somarPost(id, atual){
+  await db.from("promoters").update({ posts_feitos: atual + 1 }).eq("id", id)
+  carregarPromoters()
+}
 
-              <div class="barra">
-                <div class="progresso" style="width:${percentual}%"></div>
-              </div>
+async function diminuirPost(id, atual){
+  const novoValor = atual > 0 ? atual - 1 : 0
+  await db.from("promoters").update({ posts_feitos: novoValor }).eq("id", id)
+  carregarPromoters()
+}
 
-              <div class="tags">
-                <span class="tag">#${percentual}%</span>
-                <span class="tag">#ranking ${index + 1}</span>
-                <span class="tag">#promoter</span>
-              </div>
+async function excluir(id){
+  const confirmar = confirm("Deseja excluir esse promoter?")
+  if(!confirmar) return
 
-              <div class="acoes">
-                <button class="mais" onclick="alterarPosts('${promoter.id}', ${promoter.posts_feitos + 1})">
-                  +1 post
-                </button>
+  await db.from("promoters").delete().eq("id", id)
+  carregarPromoters()
+}
 
-                <button class="menos" onclick="alterarPosts('${promoter.id}', ${Math.max(promoter.posts_feitos - 1, 0)})">
-                  -1 post
-                </button>
+document.getElementById("form-promoter").addEventListener("submit", async (e) => {
+  e.preventDefault()
 
-                <button class="excluir" onclick="excluirPromoter('${promoter.id}')">
-                  Excluir
-                </button>
-              </div>
+  const nome = document.getElementById("nome").value
+  const instagram = document.getElementById("instagram").value
+  const telefone = document.getElementById("telefone").value
+  const arquivo = document.getElementById("print").files[0]
 
-            </div>
-          </div>
-        `
-      })
+  let urlPrint = ""
+
+  if(arquivo){
+    const nomeArquivo = Date.now() + "-" + arquivo.name
+
+    const { error: uploadError } = await db.storage
+      .from("prints")
+      .upload(nomeArquivo, arquivo)
+
+    if(uploadError){
+      alert("Erro ao enviar print")
+      console.log(uploadError)
+      return
     }
 
-    async function alterarPosts(id, novoValor){
-      const { error } = await db
-        .from('promoters')
-        .update({ posts_feitos: novoValor })
-        .eq('id', id)
+    const { data } = db.storage
+      .from("prints")
+      .getPublicUrl(nomeArquivo)
 
-      if(error){
-        alert("Erro ao atualizar posts")
-        console.log(error)
-        return
-      }
+    urlPrint = data.publicUrl
+  }
 
-      carregarPromoters()
-    }
+  const { error } = await db
+    .from("promoters")
+    .insert([{
+      nome,
+      instagram,
+      telefone,
+      print_url: urlPrint
+    }])
 
-    async function excluirPromoter(id){
-      const confirmar = confirm("Tem certeza que deseja excluir esse promoter?")
+  if(error){
+    alert("Erro ao cadastrar")
+    console.log(error)
+    return
+  }
 
-      if(!confirmar) return
+  document.getElementById("form-promoter").reset()
+  carregarPromoters()
+})
 
-      const { error } = await db
-        .from('promoters')
-        .delete()
-        .eq('id', id)
+function abrirModal(url){
+  const modal = document.getElementById("modal")
+  const imagem = document.getElementById("imagem-modal")
 
-      if(error){
-        alert("Erro ao excluir")
-        console.log(error)
-        return
-      }
+  imagem.src = url
+  modal.style.display = "flex"
+}
 
-      carregarPromoters()
-    }
+document.querySelector(".fechar-modal").onclick = () => {
+  document.getElementById("modal").style.display = "none"
+}
 
-    const form = document.getElementById('form-promoter')
+document.getElementById("modal").onclick = (e) => {
+  if(e.target.id === "modal"){
+    document.getElementById("modal").style.display = "none"
+  }
+}
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault()
-
-      const nome = document.getElementById('nome').value
-      const instagram = document.getElementById('instagram').value
-      const telefone = document.getElementById('telefone').value
-
-      const { error } = await db
-        .from('promoters')
-        .insert([
-          {
-            nome,
-            instagram,
-            telefone
-          }
-        ])
-
-      if(error){
-        alert('Erro ao cadastrar')
-        console.log(error)
-        return
-      }
-
-      form.reset()
-      carregarPromoters()
-    })
-
-    carregarPromoters()
-  </script>
+carregarPromoters()
+</script>
 
 </body>
 </html>
