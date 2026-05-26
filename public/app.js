@@ -119,39 +119,35 @@ async function login() {
 }
 
 function renderPromoterDashboard() {
-  app.innerHTML = `
-    <section class="promoter-screen">
-      <div class="promoter-card">
+app.innerHTML = `
+<section class="promoter-screen">
+  <div class="promoter-card">
+    <h1>Área do Promoter</h1>
 
-        <h1>Área do Promoter</h1>
+    <p>
+      Envie prints dos posts para aprovação do administrador.
+    </p>
 
-        <p>
-          Envie prints dos posts para aprovação do administrador.
-        </p>
+    <input
+      type="text"
+      id="post-link"
+      placeholder="Link do post"
+    />
 
-        <form class="promoter-form">
+    <select id="platform">
+      <option value="Feed">Feed</option>
+      <option value="Story">Story</option>
+      <option value="Reels">Reels</option>
+    </select>
 
-         <input id="post-link" type="text" placeholder="Link do post" />
+    <input type="file" id="image" />
 
-<select id="platform">
-  <option>Feed</option>
-  <option>story</option>
-  <option>Rells</option>
-</select>
-
-<input id="image" type="file" />
-          <button
-            type="button"
-            onclick="enviarPost()"
-          >
-            Enviar para aprovação
-          </button>
-
-        </form>
-
-      </div>
-    </section>
-  `;
+    <button onclick="enviarPost()">
+      Enviar para aprovação
+    </button>
+  </div>
+</section>
+`;
 }
 
 async function enviarPost() {
