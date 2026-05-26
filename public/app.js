@@ -280,6 +280,8 @@ async function aprovarPost(id) {
     .update({ status: "approved" })
     .eq("id", id);
 
-  renderAdminDashboard
-  renderLogin();
+  renderAdminDashboard ();
+  
+ 
 }
+ renderLogin();
