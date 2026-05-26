@@ -250,7 +250,9 @@ async function renderAdminDashboard() {
 </td>
 
 <td data-label="Status">${post.status}</td>
-
+</td>
+</tr>
+            `).join("")}
 <td data-label="Ações">
   <button onclick="aprovarPost('${post.id}')">
     Aprovar
