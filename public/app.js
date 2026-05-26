@@ -52,9 +52,6 @@ function renderLogin() {
         <div class="login-right">
           <h2>Entrar</h2>
 
-<button type="button" onclick="renderCadastro()">
-  Criar conta de promoter
-</button>
           <p>
             Acesse sua área para enviar posts ou conferir envios.
           </p>
@@ -83,14 +80,20 @@ function renderLogin() {
             Entrar
           </button>
 
-          
+          <button
+            type="button"
+            class="ghost-btn"
+            onclick="renderCadastro()"
+          >
+            Criar conta de promoter
+          </button>
+
         </div>
 
       </div>
     </section>
   `;
 }
-
 async function login() {
   const email = document
     .getElementById("email")
@@ -252,46 +255,97 @@ async function renderAdminDashboard() {
             </td>
 
             <td data-label="Ações">
+            <button onclick="aprovarPost('${post.id}')">
+    Aprovar
+  </button>
+
+  <button onclick="reprovarPost('${post.id}')">
+    Reprovar
+  </button>
+
+</td>
+
 function renderCadastro() {
   app.innerHTML = `
     <section class="login-screen">
       <div class="login-card">
+
         <h1>Criar conta</h1>
-        <p>Cadastro para promoters enviarem posts.</p>
 
-        <input id="cadastro-nome" type="text" placeholder="Nome completo" />
-        <input id="cadastro-email" type="email" placeholder="E-mail" />
-        <input id="cadastro-senha" type="password" placeholder="Senha" />
+        <p>
+          Cadastro para promoters enviarem posts.
+        </p>
 
-        <button type="button" onclick="cadastrarPromoter()">
+        <input
+          id="cadastro-nome"
+          type="text"
+          placeholder="Nome completo"
+        />
+
+        <input
+          id="cadastro-email"
+          type="email"
+          placeholder="E-mail"
+        />
+
+        <input
+          id="cadastro-senha"
+          type="password"
+          placeholder="Senha"
+        />
+
+        <button
+          type="button"
+          onclick="cadastrarPromoter()"
+        >
           Cadastrar
         </button>
 
-        <button type="button" class="ghost-btn" onclick="renderLogin()">
+        <button
+          type="button"
+          class="ghost-btn"
+          onclick="renderLogin()"
+        >
           Voltar para login
         </button>
+
       </div>
     </section>
   `;
 }
 
 async function cadastrarPromoter() {
-  const name = document.getElementById("cadastro-nome").value.trim();
-  const email = document.getElementById("cadastro-email").value.trim();
-  const password = document.getElementById("cadastro-senha").value.trim();
+
+  const name = document
+    .getElementById("cadastro-nome")
+    .value
+    .trim();
+
+  const email = document
+    .getElementById("cadastro-email")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const password = document
+    .getElementById("cadastro-senha")
+    .value
+    .trim();
 
   if (!name || !email || !password) {
     alert("Preencha todos os campos.");
     return;
   }
 
-  const { error } = await supabaseClient.from("app_users").insert({
-    name: name,
-    email: email,
-    password_hash: password,
-    role: "promoter",
-    active: true
-  });
+  const { error } = await supabaseClient
+    .from("app_users")
+    .insert({
+      name: name,
+      email: email,
+      password_hash: password,
+      role: "promoter",
+      active: true
+    });
 
   if (error) {
     console.error(error);
@@ -300,6 +354,7 @@ async function cadastrarPromoter() {
   }
 
   alert("Conta criada com sucesso!");
+
   renderLogin();
 }
               <button onclick="aprovarPost('${post.id}')">
