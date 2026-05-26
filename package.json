@@ -1,0 +1,11 @@
+{
+  "name": "painel-promoters",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.8"
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Promoters</title>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <main id="app" class="app-root">
+
+    <div class="card">
+
+      <h1>Área do Promoter</h1>
+
+      <p>Envie prints dos posts para aprovação do administrador.</p>
+
+      <input
+        id="post-link"
+        type="text"
+        placeholder="Link do post"
+      />
+
+      <select>
+        <option>Feed</option>
+        <option>Instagram</option>
+        <option>TikTok</option>
+      </select>
+
+      <input
+        id="image"
+        type="file"
+      />
+
+      <button type="button" onclick="enviarPost()">
+        Enviar para aprovação
+      </button>
+
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js" defer></script>
+
+</body>
+</html>
