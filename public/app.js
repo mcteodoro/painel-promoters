@@ -52,6 +52,9 @@ function renderLogin() {
         <div class="login-right">
           <h2>Entrar</h2>
 
+<button type="button" onclick="renderCadastro()">
+  Criar conta de promoter
+</button>
           <p>
             Acesse sua área para enviar posts ou conferir envios.
           </p>
@@ -253,7 +256,56 @@ async function renderAdminDashboard() {
             </td>
 
             <td data-label="Ações">
+function renderCadastro() {
+  app.innerHTML = `
+    <section class="login-screen">
+      <div class="login-card">
+        <h1>Criar conta</h1>
+        <p>Cadastro para promoters enviarem posts.</p>
 
+        <input id="cadastro-nome" type="text" placeholder="Nome completo" />
+        <input id="cadastro-email" type="email" placeholder="E-mail" />
+        <input id="cadastro-senha" type="password" placeholder="Senha" />
+
+        <button type="button" onclick="cadastrarPromoter()">
+          Cadastrar
+        </button>
+
+        <button type="button" class="ghost-btn" onclick="renderLogin()">
+          Voltar para login
+        </button>
+      </div>
+    </section>
+  `;
+}
+
+async function cadastrarPromoter() {
+  const name = document.getElementById("cadastro-nome").value.trim();
+  const email = document.getElementById("cadastro-email").value.trim();
+  const password = document.getElementById("cadastro-senha").value.trim();
+
+  if (!name || !email || !password) {
+    alert("Preencha todos os campos.");
+    return;
+  }
+
+  const { error } = await supabaseClient.from("app_users").insert({
+    name: name,
+    email: email,
+    password_hash: password,
+    role: "promoter",
+    active: true
+  });
+
+  if (error) {
+    console.error(error);
+    alert("Erro ao cadastrar promoter.");
+    return;
+  }
+
+  alert("Conta criada com sucesso!");
+  renderLogin();
+}
               <button onclick="aprovarPost('${post.id}')">
                 Aprovar
               </button>
