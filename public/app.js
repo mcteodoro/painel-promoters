@@ -225,34 +225,35 @@ async function renderAdminDashboard() {
 <img id="preview-image" class="preview-image" />
         <table class="admin-table">
 
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Link</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Print</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
 
-          <tbody>
+  <tbody>
+    ${posts.map(post => `
+      <tr>
 
-            ${posts.map(post => `
-              <tr>
+        <td data-label="Tipo">
+          ${post.platform}
+        </td>
 
-                <td data-label="Tipo">${post.platform}</td>
+        <td data-label="Print">
+          ${
+            post.print_url
+              ? `<img src="${post.print_url}" class="admin-image" />`
+              : `<span>Sem print</span>`
+          }
+        </td>
 
-<td data-label="Print">
-  ${post.print_url ? `
-    <img src="${post.print_url}" class="admin-image" />
-  ` : `
-    <span>Sem print</span>
-  `}
+        <td data-label="Status">
+  ${post.status}
 </td>
 
-<td data-label="Status">${post.status}</td>
-</td>
-</tr>
-            `).join("")}
 <td data-label="Ações">
   <button onclick="aprovarPost('${post.id}')">
     Aprovar
@@ -263,13 +264,12 @@ async function renderAdminDashboard() {
   </button>
 </td>
 
-        </table>
+</tr>
+`).join("")}
+  </tbody>
 
-      </div>
-
-    </section>
-  `;
-}
+</table>
+        
 renderLogin();
 async function aprovarPost(id) {
 
