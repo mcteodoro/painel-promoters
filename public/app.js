@@ -47,16 +47,27 @@ function renderLogin() {
 }
 
 async function login() {
-  const email = document.getElementById("email").value.trim().toLowerCase();
+
+  const email = document
+    .getElementById("email")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const password = document
+    .getElementById("password")
+    .value
+    .trim();
 
   const { data, error } = await supabaseClient
     .from("app_users")
     .select("*")
     .eq("email", email)
+    .eq("password_hash", password)
     .single();
 
   if (error || !data) {
-    alert("Usuário não encontrado.");
+    alert("E-mail ou senha inválidos.");
     return;
   }
 
@@ -68,7 +79,6 @@ async function login() {
     renderPromoterDashboard();
   }
 }
-
 function renderCadastro() {
   app.innerHTML = `
     <section class="login-screen">
@@ -119,18 +129,8 @@ async function cadastrarPromoter() {
 
   alert("Conta criada com sucesso!");
 const savedUser = localStorage.getItem("user");
-
-if (savedUser) {
-  const user = JSON.parse(savedUser);
-
-  if (user.role === "admin") {
-    renderAdminDashboard();
-  } else {
-    renderPromoterDashboard();
-  }
-} else {
-  renderLogin();
-}}
+renderLogin();
+}
 
 function renderPromoterDashboard() {
   app.innerHTML = `
