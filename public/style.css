@@ -257,3 +257,52 @@ button{
   border-radius:14px;
   border:1px solid #dbe2ea;
 }
+@media (max-width: 768px) {
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table th,
+  .admin-table td,
+  .admin-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-table thead {
+    display: none;
+  }
+
+  .admin-table tr {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  }
+
+  .admin-table td {
+    border: none;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .admin-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #6b7280;
+  }
+
+  .admin-image {
+    width: 90px;
+    height: 90px;
+  }
+
+  .admin-table button {
+    width: 100%;
+    margin: 6px 0;
+  }
+}

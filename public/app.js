@@ -239,37 +239,27 @@ async function renderAdminDashboard() {
             ${posts.map(post => `
               <tr>
 
-                <td>${post.platform}</td>
+                <td data-label="Tipo">${post.platform}</td>
 
-              <td>
+<td data-label="Print">
   ${post.print_url ? `
-  <img src="${post.print_url}" class="admin-image" />
-` : `
-  <span>Sem print</span>
-`}
+    <img src="${post.print_url}" class="admin-image" />
+  ` : `
+    <span>Sem print</span>
+  `}
 </td>
 
-                <td>
-                  ${post.status}
-                </td>
+<td data-label="Status">${post.status}</td>
 
-                <td>
+<td data-label="Ações">
+  <button onclick="aprovarPost('${post.id}')">
+    Aprovar
+  </button>
 
-                  <button onclick="aprovarPost('${post.id}')">
-                    Aprovar
-                    
-                  </button>
-
-                  <button onclick="reprovarPost('${post.id}')">
-                    Reprovar
-                  </button>
-
-                </td>
-
-              </tr>
-            `).join("")}
-
-          </tbody>
+  <button onclick="reprovarPost('${post.id}')">
+    Reprovar
+  </button>
+</td>
 
         </table>
 
