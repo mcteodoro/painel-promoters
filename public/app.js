@@ -281,4 +281,5 @@ async function aprovarPost(id) {
     .eq("id", id);
 
   renderAdminDashboard
+  renderLogin();
 }
