@@ -306,3 +306,34 @@ button{
     margin: 6px 0;
   }
 }
+@media (max-width: 768px) {
+  h1 {
+    font-size: 42px;
+    line-height: 1.1;
+  }
+
+  .promoter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .promoter-form input,
+  .promoter-form select,
+  .promoter-form button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .promoter-form input,
+  .promoter-form select {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .promoter-form button {
+    padding: 18px;
+    border-radius: 18px;
+    font-weight: 700;
+  }
+}
