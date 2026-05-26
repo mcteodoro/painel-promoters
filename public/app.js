@@ -155,7 +155,8 @@ function renderPromoterDashboard() {
         </button>
       </div>
     </section>
-  `;
+  `
+  renderLogin();
 }
 
 async function enviarPost() {
