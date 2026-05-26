@@ -213,66 +213,69 @@ async function renderAdminDashboard() {
     });
 
   app.innerHTML = `
-    <section class="promoter-screen">
+<section class="promoter-screen">
 
-      <div class="promoter-card">
+  <div class="promoter-card">
+    <h1>Painel Admin</h1>
 
-        <h1>Painel Admin</h1>
+    <p>
+      Gerencie os posts enviados.
+    </p>
 
-        <p>
-          Gerencie os posts enviados.
-        </p>
-<img id="preview-image" class="preview-image" />
-        <table class="admin-table">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Print</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
 
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>Print</th>
-      <th>Status</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
+      <tbody>
+        ${posts.map(post => `
+          <tr>
 
-  <tbody>
-    ${posts.map(post => `
-      <tr>
+            <td data-label="Tipo">
+              ${post.platform}
+            </td>
 
-        <td data-label="Tipo">
-          ${post.platform}
-        </td>
+            <td data-label="Print">
+              ${
+                post.print_url
+                  ? `<img src="${post.print_url}" class="admin-image" />`
+                  : `<span>Sem print</span>`
+              }
+            </td>
 
-        <td data-label="Print">
-          ${
-            post.print_url
-              ? `<img src="${post.print_url}" class="admin-image" />`
-              : `<span>Sem print</span>`
-          }
-        </td>
+            <td data-label="Status">
+              ${post.status}
+            </td>
 
-        <td data-label="Status">
-  ${post.status}
-</td>
+            <td data-label="Ações">
 
-<td data-label="Ações">
-  <button onclick="aprovarPost('${post.id}')">
-    Aprovar
-  </button>
+              <button onclick="aprovarPost('${post.id}')">
+                Aprovar
+              </button>
 
-  <button onclick="reprovarPost('${post.id}')">
-    Reprovar
-  </button>
-</td>
+              <button onclick="reprovarPost('${post.id}')">
+                Reprovar
+              </button>
 
-</tr>
-`).join("")}
-  </tbody>
+            </td>
 
-</table>
-        
+          </tr>
+        `).join("")}
+      </tbody>
+
+    </table>
+  </div>
+
+</section>
+`;
+}
 renderLogin();
 async function aprovarPost(id) {
-
   await supabaseClient
     .from("posts")
     .update({
@@ -282,7 +285,6 @@ async function aprovarPost(id) {
 
   renderAdminDashboard();
 }
-
 async function reprovarPost(id) {
 
   await supabaseClient
