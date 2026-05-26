@@ -118,8 +118,19 @@ async function cadastrarPromoter() {
   }
 
   alert("Conta criada com sucesso!");
+const savedUser = localStorage.getItem("user");
+
+if (savedUser) {
+  const user = JSON.parse(savedUser);
+
+  if (user.role === "admin") {
+    renderAdminDashboard();
+  } else {
+    renderPromoterDashboard();
+  }
+} else {
   renderLogin();
-}
+}}
 
 function renderPromoterDashboard() {
   app.innerHTML = `
