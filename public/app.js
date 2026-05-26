@@ -6,32 +6,6 @@ const supabaseClient = supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
-const imageInput = document.getElementById("image");
-const fileName = `${Date.now()}-${image.name}`;
-
-const preview = document.getElementById("preview-image");
-
-
-imageInput.addEventListener("change", (event) => {
-
-  const file = event.target.files[0];
-
-  if(file){
-
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-
-      preview.src = e.target.result;
-      preview.style.display = "block";
-
-    };
-
-    reader.readAsDataURL(file);
-
-  }
-
-});
 function renderLogin() {
   app.innerHTML = `
     <section class="login-screen">
@@ -42,64 +16,38 @@ function renderLogin() {
 
           <div class="login-content">
             <h1>Conferência de Posts</h1>
-
-            <p>
-              Promoters enviam posts, o admin confere tudo em uma fila única.
-            </p>
+            <p>Promoters enviam posts, o admin confere tudo em uma fila única.</p>
           </div>
         </div>
 
         <div class="login-right">
           <h2>Entrar</h2>
-
-          <p>
-            Acesse sua área para enviar posts ou conferir envios.
-          </p>
+          <p>Acesse sua área para enviar posts ou conferir envios.</p>
 
           <div class="field">
             <label>E-mail</label>
-
-            <input
-              id="email"
-              type="email"
-              placeholder="Digite seu e-mail"
-            />
+            <input id="email" type="email" placeholder="Digite seu e-mail" />
           </div>
 
           <div class="field">
             <label>Senha</label>
-
-            <input
-              id="password"
-              type="password"
-              placeholder="Digite sua senha"
-            />
+            <input id="password" type="password" placeholder="Digite sua senha" />
           </div>
 
-          <button onclick="login()">
-            Entrar
-          </button>
+          <button onclick="login()">Entrar</button>
 
-          <button
-            type="button"
-            class="ghost-btn"
-            onclick="renderCadastro()"
-          >
+          <button type="button" class="ghost-btn" onclick="renderCadastro()">
             Criar conta de promoter
           </button>
-
         </div>
 
       </div>
     </section>
   `;
 }
+
 async function login() {
-  const email = document
-    .getElementById("email")
-    .value
-    .trim()
-    .toLowerCase();
+  const email = document.getElementById("email").value.trim().toLowerCase();
 
   const { data, error } = await supabaseClient
     .from("app_users")
@@ -121,36 +69,82 @@ async function login() {
   }
 }
 
+function renderCadastro() {
+  app.innerHTML = `
+    <section class="login-screen">
+      <div class="login-card">
+        <h1>Criar conta</h1>
+
+        <p>Cadastro para promoters enviarem posts.</p>
+
+        <input id="cadastro-nome" type="text" placeholder="Nome completo" />
+        <input id="cadastro-email" type="email" placeholder="E-mail" />
+        <input id="cadastro-senha" type="password" placeholder="Senha" />
+
+        <button type="button" onclick="cadastrarPromoter()">
+          Cadastrar
+        </button>
+
+        <button type="button" class="ghost-btn" onclick="renderLogin()">
+          Voltar para login
+        </button>
+      </div>
+    </section>
+  `;
+}
+
+async function cadastrarPromoter() {
+  const name = document.getElementById("cadastro-nome").value.trim();
+  const email = document.getElementById("cadastro-email").value.trim().toLowerCase();
+  const password = document.getElementById("cadastro-senha").value.trim();
+
+  if (!name || !email || !password) {
+    alert("Preencha todos os campos.");
+    return;
+  }
+
+  const { error } = await supabaseClient.from("app_users").insert({
+    name: name,
+    email: email,
+    password_hash: password,
+    role: "promoter",
+    active: true
+  });
+
+  if (error) {
+    console.error(error);
+    alert("Erro ao cadastrar promoter.");
+    return;
+  }
+
+  alert("Conta criada com sucesso!");
+  renderLogin();
+}
+
 function renderPromoterDashboard() {
-app.innerHTML = `
-<section class="promoter-screen">
-  <div class="promoter-card">
-    <h1>Área do Promoter</h1>
+  app.innerHTML = `
+    <section class="promoter-screen">
+      <div class="promoter-card">
+        <h1>Área do Promoter</h1>
 
-    <p>
-      Envie prints dos posts para aprovação do administrador.
-    </p>
+        <p>Envie prints dos posts para aprovação do administrador.</p>
 
-    <input
-      type="text"
-      id="post-link"
-      placeholder="Link do post"
-    />
+        <input type="text" id="post-link" placeholder="Link do post" />
 
-    <select id="platform">
-      <option value="Feed">Feed</option>
-      <option value="Story">Story</option>
-      <option value="Reels">Reels</option>
-    </select>
+        <select id="platform">
+          <option value="Feed">Feed</option>
+          <option value="Story">Story</option>
+          <option value="Reels">Reels</option>
+        </select>
 
-    <input type="file" id="image" />
+        <input type="file" id="image" />
 
-    <button onclick="enviarPost()">
-      Enviar para aprovação
-    </button>
-  </div>
-</section>
-`;
+        <button onclick="enviarPost()">
+          Enviar para aprovação
+        </button>
+      </div>
+    </section>
+  `;
 }
 
 async function enviarPost() {
@@ -205,197 +199,74 @@ async function enviarPost() {
 
   alert("Post enviado para aprovação!");
 }
-async function renderAdminDashboard() {
 
-  const { data: posts } = await supabaseClient
+async function renderAdminDashboard() {
+  const { data: posts, error } = await supabaseClient
     .from("posts")
     .select("*")
-    .order("created_at", {
-      ascending: false
-    });
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    alert("Erro ao carregar posts.");
+    return;
+  }
 
   app.innerHTML = `
-<section class="promoter-screen">
+    <section class="promoter-screen">
+      <div class="promoter-card">
+        <h1>Painel Admin</h1>
 
-  <div class="promoter-card">
-    <h1>Painel Admin</h1>
+        <p>Gerencie os posts enviados.</p>
 
-    <p>
-      Gerencie os posts enviados.
-    </p>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Print</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
 
-    <table class="admin-table">
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Print</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
+          <tbody>
+            ${posts.map(post => `
+              <tr>
+                <td data-label="Tipo">${post.platform}</td>
 
-      <tbody>
-        ${posts.map(post => `
-          <tr>
+                <td data-label="Print">
+                  ${
+                    post.print_url
+                      ? `<img src="${post.print_url}" class="admin-image" />`
+                      : `<span>Sem print</span>`
+                  }
+                </td>
 
-            <td data-label="Tipo">
-              ${post.platform}
-            </td>
+                <td data-label="Status">${post.status}</td>
 
-            <td data-label="Print">
-              ${
-                post.print_url
-                  ? `<img src="${post.print_url}" class="admin-image" />`
-                  : `<span>Sem print</span>`
-              }
-            </td>
+                <td data-label="Ações">
+                  <button onclick="aprovarPost('${post.id}')">
+                    Aprovar
+                  </button>
 
-            <td data-label="Status">
-              ${post.status}
-            </td>
-
-            <td data-label="Ações">
-            <button onclick="aprovarPost('${post.id}')">
-    Aprovar
-  </button>
-
-  <button onclick="reprovarPost('${post.id}')">
-    Reprovar
-  </button>
-
-</td>
-
-function renderCadastro() {
-  app.innerHTML = `
-    <section class="login-screen">
-      <div class="login-card">
-
-        <h1>Criar conta</h1>
-
-        <p>
-          Cadastro para promoters enviarem posts.
-        </p>
-
-        <input
-          id="cadastro-nome"
-          type="text"
-          placeholder="Nome completo"
-        />
-
-        <input
-          id="cadastro-email"
-          type="email"
-          placeholder="E-mail"
-        />
-
-        <input
-          id="cadastro-senha"
-          type="password"
-          placeholder="Senha"
-        />
-
-        <button
-          type="button"
-          onclick="cadastrarPromoter()"
-        >
-          Cadastrar
-        </button>
-
-        <button
-          type="button"
-          class="ghost-btn"
-          onclick="renderLogin()"
-        >
-          Voltar para login
-        </button>
-
+                  <button onclick="reprovarPost('${post.id}')">
+                    Reprovar
+                  </button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
       </div>
     </section>
   `;
 }
 
-async function cadastrarPromoter() {
-
-  const name = document
-    .getElementById("cadastro-nome")
-    .value
-    .trim();
-
-  const email = document
-    .getElementById("cadastro-email")
-    .value
-    .trim()
-    .toLowerCase();
-
-  const password = document
-    .getElementById("cadastro-senha")
-    .value
-    .trim();
-
-  if (!name || !email || !password) {
-    alert("Preencha todos os campos.");
-    return;
-  }
-
-  const { error } = await supabaseClient
-    .from("app_users")
-    .insert({
-      name: name,
-      email: email,
-      password_hash: password,
-      role: "promoter",
-      active: true
-    });
-
-  if (error) {
-    console.error(error);
-    alert("Erro ao cadastrar promoter.");
-    return;
-  }
-
-  alert("Conta criada com sucesso!");
-
-  renderLogin();
-}
-              <button onclick="aprovarPost('${post.id}')">
-                Aprovar
-              </button>
-
-              <button onclick="reprovarPost('${post.id}')">
-                Reprovar
-              </button>
-
-            </td>
-
-          </tr>
-        `).join("")}
-      </tbody>
-
-    </table>
-  </div>
-
-</section>
-`;
-}
-renderLogin();
 async function aprovarPost(id) {
   await supabaseClient
     .from("posts")
-    .update({
-      status: "approved"
-    })
+    .update({ status: "approved" })
     .eq("id", id);
 
-  renderAdminDashboard();
-}
-async function reprovarPost(id) {
-
-  await supabaseClient
-    .from("posts")
-    .update({
-      status: "rejected"
-    })
-    .eq("id", id);
-
-  renderAdminDashboard();
+  renderAdminDashboard
 }
