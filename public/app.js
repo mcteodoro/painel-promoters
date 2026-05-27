@@ -8,8 +8,8 @@ const supabaseClient = supabase.createClient(
 
 function renderLogin() {
   app.innerHTML = `
-    <section class="login-screen">
-      <div class="login-container">
+    <section class="promoter-screen">
+  <div class="promoter-card">
 
         <div class="login-left">
          
