@@ -212,7 +212,7 @@ async function enviarPost() {
   alert("Post enviado para aprovação!");
 }
 
-await function renderAdminDashboard() {
+async function renderAdminDashboard() {
   const { data: posts, error } = await supabaseClient
     .from("posts")
     .select("*")
