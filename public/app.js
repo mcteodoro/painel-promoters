@@ -15,7 +15,7 @@ function renderLogin() {
          
           <div class="login-content">
             <h1>Conferência de Posts</h1>
-            <p>Promoters enviam posts, o admin confere tudo em uma fila única.</p>
+            
           </div>
         </div>
 
