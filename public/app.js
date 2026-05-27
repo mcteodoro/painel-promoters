@@ -12,7 +12,7 @@ function renderLogin() {
       <div class="login-container">
 
         <div class="login-left">
-          <div class="logo-box">P</div>
+          <div class="logo-box">Fenixx Produções</div>
 
           <div class="login-content">
             <h1>Conferência de Posts</h1>
