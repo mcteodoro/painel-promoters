@@ -271,3 +271,11 @@ button:hover {
 td[data-label="Status"] {
   font-weight: 700;
 }
+.admin-table td,
+.admin-table th {
+  color: white;
+}
+td[data-label="Status"] {
+  color: #ffffff;
+  font-weight: 700;
+}
