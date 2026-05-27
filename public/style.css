@@ -256,14 +256,3 @@ input:focus {
 .status-pending {
   color: #facc15;
 }
-.btn-approve {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-}
-
-.btn-reject {
-  background: linear-gradient(135deg, #dc2626, #ef4444);
-}
-.logout-btn {
-  background: #ef4444;
-  margin-bottom: 20px;
-}
