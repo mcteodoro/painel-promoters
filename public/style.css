@@ -378,3 +378,60 @@ table {
 .promoter-card {
   overflow-x: auto;
 }
+@media (max-width: 768px) {
+  .promoter-screen {
+    padding: 16px;
+  }
+
+  .promoter-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 18px;
+  }
+
+  .promoter-card h1 {
+    font-size: 34px;
+  }
+
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table tr,
+  .admin-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-table thead {
+    display: none;
+  }
+
+  .admin-table tr {
+    margin-bottom: 22px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .admin-table td {
+    margin-bottom: 12px;
+    text-align: left;
+  }
+
+  .admin-table td::before {
+    content: attr(data-label) ": ";
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .admin-table td[data-label="Print"]::before,
+  .admin-table td[data-label="Ações"]::before {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .admin-table td[data-label="Ações"] button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
