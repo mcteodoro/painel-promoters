@@ -33,12 +33,15 @@ function renderLogin() {
             <input id="password" type="password" placeholder="Digite sua senha" />
           </div>
 
-<button type="button" onclick="login()">
-  Entrar
-</button>
-          <button type="button" class="ghost-btn" onclick="renderCadastro()">
-            Criar conta de promoter
-          </button>
+<div class="login-actions">
+  <button onclick="login()">
+    Entrar
+  </button>
+
+  <button onclick="renderCadastro()">
+    Criar conta de promoter
+  </button>
+</div>
         </div>
 
       </div>
