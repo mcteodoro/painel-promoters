@@ -133,3 +133,44 @@ button:hover {
   width: 100%;
   max-width: 720px;
 }
+body {
+  background: linear-gradient(135deg, #020617, #111827, #1e1b4b);
+}
+
+.login-screen,
+.promoter-screen {
+  background: radial-gradient(circle at top, #1e3a8a, #020617 65%);
+}
+
+.login-container,
+.login-card,
+.promoter-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+}
+
+h1, h2, label {
+  color: #ffffff;
+}
+
+p {
+  color: #cbd5e1;
+}
+
+input,
+select {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+input::placeholder {
+  color: #cbd5e1;
+}
+
+.logo-box {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+}

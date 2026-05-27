@@ -63,17 +63,24 @@ async function login() {
     .from("app_users")
     .select("*")
     .eq("email", email)
-    .eq("password_hash", password)
-    .single();
+    .eq("password_hash", password);
 
-  if (error || !data) {
+  if (error) {
+    console.error(error);
+    alert("Erro ao fazer login.");
+    return;
+  }
+
+  if (!data || data.length === 0) {
     alert("E-mail ou senha inválidos.");
     return;
   }
 
-  localStorage.setItem("user", JSON.stringify(data));
+  const user = data[0];
 
-  if (data.role === "admin") {
+  localStorage.setItem("user", JSON.stringify(user));
+
+  if (user.role === "admin") {
     renderAdminDashboard();
   } else {
     renderPromoterDashboard();
