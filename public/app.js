@@ -47,6 +47,7 @@ function renderLogin() {
 }
 
 async function login() {
+
   const email = document
     .getElementById("email")
     .value
@@ -62,26 +63,20 @@ async function login() {
     .from("app_users")
     .select("*")
     .eq("email", email)
-    .eq("password_hash", password);
+    .eq("password_hash", password)
+    .maybeSingle();
 
-  if (error) {
-    console.error(error);
-    alert("Erro ao fazer login.");
-    return;
-  }
+  console.log(data);
+  console.log(error);
 
-  if (!data || data.length === 0) {
+  if (!data) {
     alert("E-mail ou senha inválidos.");
     return;
   }
 
-  const user = data[0];
+  localStorage.setItem("user", JSON.stringify(data));
 
-  console.log(user);
-
-  localStorage.setItem("user", JSON.stringify(user));
-
-  if (user.role === "admin") {
+  if (data.role === "admin") {
     renderAdminDashboard();
   } else {
     renderPromoterDashboard();
@@ -142,11 +137,20 @@ function renderPromoterDashboard() {
   app.innerHTML = `
     <section class="promoter-screen">
       <div class="promoter-card">
+
+        <button onclick="logout()" class="logout-btn">
+          Sair
+        </button>
+
         <h1>Área do Promoter</h1>
 
-        <p>Envie prints dos posts para aprovação do administrador.</p>
+        <p>Envie prints dos posts para aprovação.</p>
 
-        <input type="text" id="post-link" placeholder="Link do post" />
+        <input
+          type="text"
+          id="post-link"
+          placeholder="Link do post"
+        />
 
         <select id="platform">
           <option value="Feed">Feed</option>
@@ -159,10 +163,10 @@ function renderPromoterDashboard() {
         <button onclick="enviarPost()">
           Enviar para aprovação
         </button>
+
       </div>
     </section>
-  `
-  renderLogin();
+  `;
 }
 
 async function enviarPost() {
