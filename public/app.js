@@ -253,16 +253,21 @@ async function renderAdminDashboard() {
         <table class="admin-table">
           <thead>
             <tr>
-              <th>Tipo</th>
-              <th>Print</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
+  <th>Promoter</th>
+  <th>Tipo</th>
+  <th>Print</th>
+  <th>Status</th>
+  <th>Ações</th>
+</tr>
           </thead>
 
           <tbody>
             ${posts.map(post => `
               <tr>
+              <tr>
+<td data-label="Promoter">
+  ${post.promoter_name || post.promoter_email || "Sem nome"}
+</td>
                 <td data-label="Tipo">${post.platform}</td>
 
                 <td data-label="Print">
