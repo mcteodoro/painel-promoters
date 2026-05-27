@@ -86,9 +86,6 @@ button:hover {
   padding: 14px;
   text-align: center;
 }
-.promoter-card {
-  max-width: 720px;
-}
 
 .promoter-card input,
 .promoter-card select,
@@ -114,12 +111,7 @@ button:hover {
   align-items: center;
 }
 
-.promoter-card {
-  background: #ffffff;
-  border-radius: 28px;
-  padding: 42px;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
-}
+
 .promoter-screen {
   width: 100%;
   min-height: 100%;
@@ -129,10 +121,7 @@ button:hover {
   padding: 40px 20px;
 }
 
-.promoter-card {
-  width: 100%;
-  max-width: 720px;
-}
+
 body {
   background: linear-gradient(135deg, #020617, #111827, #1e1b4b);
 }
@@ -144,12 +133,7 @@ body {
 
 .login-container,
 .login-card,
-.promoter-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
-}
+
 
 h1, h2, label {
   color: #ffffff;
@@ -248,10 +232,7 @@ button:hover {
   background: linear-gradient(135deg, #dc2626, #ef4444);
 }
 
-.admin-card,
-.promoter-card {
-  max-width: 760px;
-}
+
 
 .admin-image {
   width: 78px;
@@ -332,12 +313,7 @@ select {
     overflow-x: hidden;
   }
 
-  .promoter-card {
-    width: 100%;
-    max-width: 100%;
-    padding: 24px 18px;
-    overflow-x: auto;
-  }
+ }
 
   .promoter-card h1 {
     font-size: 36px;
@@ -355,7 +331,7 @@ select {
   .logout-btn {
     max-width: 160px;
   }
-}
+
 body {
   overflow-x: hidden;
 }
@@ -375,23 +351,14 @@ table {
   min-width: 700px;
 }
 
-.promoter-card {
-  overflow-x: auto;
-}
+
+
 @media (max-width: 768px) {
   .promoter-screen {
     padding: 16px;
   }
 
-  .promoter-card {
-  width: calc(100vw - 32px);
-  max-width: 100%;
-  margin: 20px auto;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
+ 
   .promoter-card h1 {
     font-size: 34px;
   }
@@ -480,25 +447,28 @@ html {
 }
 
 .promoter-screen,
-.promoter-card {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-/* PC */
-.promoter-card {
-  width: 100%;
-  max-width: 760px;
-  margin: 40px auto;
-}
 
-/* CELULAR */
-@media (max-width: 768px) {
-  .promoter-card {
-    width: calc(100vw - 32px);
-    max-width: 100%;
-    margin: 16px auto;
-    padding: 20px;
-    overflow-x: hidden;
+
+
+  .admin-table td {
+    margin-bottom: 12px;
   }
-}
+
+  .admin-table td::before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .admin-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .admin-table td[data-label="Ações"] button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
