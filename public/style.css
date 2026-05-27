@@ -242,3 +242,32 @@ button:hover {
   background: #ef4444;
   margin-bottom: 20px;
 }
+.logout-btn {
+  height: 48px;
+  max-width: 180px;
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.admin-card,
+.promoter-card {
+  max-width: 760px;
+}
+
+.admin-image {
+  width: 78px;
+  height: 78px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.admin-table button:first-child {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.admin-table button:last-child {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+td[data-label="Status"] {
+  font-weight: 700;
+}
