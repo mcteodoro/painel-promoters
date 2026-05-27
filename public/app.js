@@ -170,6 +170,12 @@ function renderPromoterDashboard() {
 }
 
 async function enviarPost() {
+  const submitButton = document.querySelector(
+  '.promoter-card button:last-child'
+);
+
+submitButton.disabled = true;
+submitButton.innerText = "Enviando...";
   const user = JSON.parse(localStorage.getItem("user"));
 
   const link = document.getElementById("post-link").value.trim();
@@ -219,10 +225,14 @@ async function enviarPost() {
   if (error) {
     console.error(error);
     alert("Erro ao enviar post.");
-    return;
+    submitButton.disabled = false;
+submitButton.innerText = "Enviar para aprovação";
+return;
   }
 
   alert("Post enviado para aprovação!");
+  submitButton.disabled = false;
+submitButton.innerText = "Enviar para aprovação";
 renderPromoterDashboard();
 }
 
