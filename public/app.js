@@ -33,8 +33,7 @@ function renderLogin() {
             <input id="password" type="password" placeholder="Digite sua senha" />
           </div>
 
-          <button onclick="login()">Entrar</button>
-
+<button type="button" onclick="login()">
           <button type="button" class="ghost-btn" onclick="renderCadastro()">
             Criar conta de promoter
           </button>
@@ -46,7 +45,6 @@ function renderLogin() {
 }
 
 async function login() {
-
   const email = document
     .getElementById("email")
     .value
@@ -76,6 +74,8 @@ async function login() {
   }
 
   const user = data[0];
+
+  console.log(user);
 
   localStorage.setItem("user", JSON.stringify(user));
 
