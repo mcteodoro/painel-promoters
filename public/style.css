@@ -326,3 +326,33 @@ select {
 .ranking-item:last-child {
   border-bottom: none;
 }
+@media (max-width: 768px) {
+  .promoter-screen {
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  .promoter-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 18px;
+    overflow-x: auto;
+  }
+
+  .promoter-card h1 {
+    font-size: 36px;
+  }
+
+  .admin-table {
+    width: 100%;
+    min-width: 650px;
+  }
+
+  .ranking-box {
+    width: 100%;
+  }
+
+  .logout-btn {
+    max-width: 160px;
+  }
+}
