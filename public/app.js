@@ -233,6 +233,11 @@ async function renderAdminDashboard() {
   app.innerHTML = `
     <section class="promoter-screen">
       <div class="promoter-card">
+
+        <button onclick="logout()" class="logout-btn">
+          Sair
+        </button>
+
         <h1>Painel Admin</h1>
 
         <p>Gerencie os posts enviados.</p>
@@ -278,6 +283,11 @@ async function renderAdminDashboard() {
       </div>
     </section>
   `;
+}
+  
+function logout() {
+  localStorage.removeItem("user");
+  renderLogin();
 }
 
 async function aprovarPost(id) {
