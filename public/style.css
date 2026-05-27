@@ -2,365 +2,202 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
-body {
-  background: #eef2ff;
-  min-height: 100%;
+body,
+html {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #06113c 0%, #0b1d63 100%);
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden;
+}
+
+.promoter-screen {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.login-screen,
-.promoter-screen {
-  width: 100%;
-  display: flex;
-  justify-content: center;
   padding: 40px 20px;
 }
 
-.login-card,
 .promoter-card {
-  background: white;
   width: 100%;
-  max-width: 100px;
-  padding: 40px;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  max-width: 760px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 32px;
+  margin: 0 auto;
 }
 
-h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-  color: #0f172a;
+.promoter-card h1 {
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 12px;
+  color: white;
 }
 
-p {
-  color: #6b7280;
+.promoter-card p {
+  color: rgba(255,255,255,0.8);
   margin-bottom: 30px;
 }
 
 input,
 select {
   width: 100%;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 14px;
-  border: 2px solid #dbeafe;
-  font-size: 16px;
+  height: 62px;
+  border: none;
+  outline: none;
+  border-radius: 18px;
+  padding: 0 20px;
+  margin-bottom: 18px;
+  font-size: 18px;
+  color: black;
+  background: white;
+}
+
+input::placeholder {
+  color: #777;
+}
+
+select {
+  color: black;
 }
 
 button {
-  width: 100%;
-  padding: 16px;
   border: none;
-  border-radius: 14px;
-  background: linear-gradient(90deg, #2563eb, #4f46e5);
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 button:hover {
-  opacity: 0.95;
+  opacity: 0.9;
 }
 
-.admin-image {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 12px;
+.logout-btn {
+  background: linear-gradient(90deg, #ff2d55, #ff4b4b);
+  color: white;
+  width: 180px;
+  height: 56px;
+  border-radius: 18px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 28px;
 }
 
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
-.admin-table th,
-.admin-table td {
+.admin-table th {
+  text-align: left;
   padding: 14px;
-  text-align: center;
-}
-
-.promoter-card input,
-.promoter-card select,
-.promoter-card button {
-  width: 100%;
-  display: block;
-  margin-bottom: 16px;
-}
-
-.promoter-card input,
-.promoter-card select {
-  height: 52px;
-  background: #fff;
-}
-
-.promoter-card input[type="file"] {
-  height: auto;
-  border: none;
-  padding-left: 0;
-}
-.promoter-screen {
-  min-height: 100%;
-  align-items: center;
-}
-
-
-.promoter-screen {
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-}
-
-
-body {
-  background: linear-gradient(135deg, #020617, #111827, #1e1b4b);
-}
-
-.login-screen,
-.promoter-screen {
-  background: radial-gradient(circle at top, #1e3a8a, #020617 65%);
-}
-
-.login-container,
-.login-card,
-
-
-h1, h2, label {
-  color: #ffffff;
-}
-
-p {
-  color: #e9dddd;
-}
-
-input,
-select {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-input::placeholder {
-  color: #cbd5e1;
-}
-
-.logo-box {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
   color: white;
-}
-.login-container {
-  max-width: 520px;
-  border-radius: 28px;
-  padding: 36px;
-  overflow: hidden;
+  font-size: 18px;
 }
 
-.login-left {
-  border-radius: 22px;
-  padding: 24px;
+.admin-table td {
+  padding: 18px 14px;
+  vertical-align: middle;
 }
-
-.login-right {
-  padding: 24px 0 0;
-}
-
-.login-content h1 {
-  font-size: 42px;
-  line-height: 1;
-}
-
-.field input {
-  height: 58px;
-  border-radius: 18px;
-}
-
-button {
-  border-radius: 18px;
-  height: 58px;
-}
-
-.ghost-btn {
-  margin-top: 10px;
-  background: rgba(255,255,255,0.10);
-}
-.field input {
-  height: 52px;
-  font-size: 15px;
-}
-
-.login-container {
-  transform: translateY(-10px);
-}
-
-.login-screen {
-  background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.35), transparent 35%),
-    radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.35), transparent 35%),
-    linear-gradient(135deg, #020617, #111827);
-}
-
-button {
-  transition: 0.25s ease;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
-}
-
-.login-card,
-.login-container {
-  border-radius: 32px;
-}
-.logout-btn {
-  background: #ef4444;
-  margin-bottom: 20px;
-}
-.logout-btn {
-  height: 48px;
-  max-width: 180px;
-  background: linear-gradient(135deg, #dc2626, #ef4444);
-}
-
-
 
 .admin-image {
-  width: 78px;
-  height: 78px;
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
   object-fit: cover;
-  border-radius: 14px;
+}
+
+.admin-table button {
+  width: 150px;
+  height: 56px;
+  border-radius: 18px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .admin-table button:first-child {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
+  background: #22c55e;
 }
 
 .admin-table button:last-child {
-  background: linear-gradient(135deg, #dc2626, #ef4444);
+  background: #ef4444;
 }
 
-td[data-label="Status"] {
-  font-weight: 700;
-}
-.admin-table td,
-.admin-table th {
-  color: white;
-}
-td[data-label="Status"] {
-  color: #ffffff;
-  font-weight: 700;
-}
-.auth-card p,
-.auth-card span,
-.auth-card small,
-.auth-card label {
-  color: #000000;
-}
-.auth-card * {
-  color: #000000;
-}
-select {
-  background: #000000;
-  color: #ffffff;
-}
-
-select option {
-  background: #000000;
-  color: #ffffff;
-}
-input,
-select {
-  background: #000000;
-  color: #ffffff;
-  border: 1px solid #333;
-}
 .ranking-box {
-  margin: 24px 0;
-  padding: 20px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.08);
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border-radius: 22px;
+  padding: 24px;
+  margin-top: 20px;
+  margin-bottom: 24px;
 }
 
 .ranking-box h2 {
-  margin-bottom: 14px;
-  color: #ffffff;
+  font-size: 36px;
+  margin-bottom: 18px;
 }
 
 .ranking-item {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  color: #ffffff;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .ranking-item:last-child {
   border-bottom: none;
 }
+
+.ranking-item strong {
+  font-size: 22px;
+}
+
+.ranking-item span {
+  font-size: 22px;
+}
+
+/* MOBILE */
+
 @media (max-width: 768px) {
+
   .promoter-screen {
-    padding: 20px;
-    overflow-x: hidden;
+    padding: 14px;
+    align-items: flex-start;
   }
 
- }
+  .promoter-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
 
   .promoter-card h1 {
-    font-size: 36px;
-  }
-
-  .admin-table {
-    width: 100%;
-    min-width: 650px;
-  }
-
-  .ranking-box {
-    width: 100%;
+    font-size: 42px;
   }
 
   .logout-btn {
-    max-width: 160px;
+    width: 140px;
+    height: 52px;
+    font-size: 16px;
   }
 
-body {
-  overflow-x: hidden;
-}
-
-table {
-  display: block;
-  overflow-x: auto;
-}
-.admin-table {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.admin-table table {
-  min-width: 700px;
-}
-
-
-
-@media (max-width: 768px) {
-  .promoter-screen {
-    padding: 16px;
+  .ranking-box h2 {
+    font-size: 28px;
   }
 
- 
-  .promoter-card h1 {
-    font-size: 34px;
+  .ranking-item strong,
+  .ranking-item span {
+    font-size: 18px;
   }
 
   .admin-table,
@@ -377,98 +214,39 @@ table {
   }
 
   .admin-table tr {
-    margin-bottom: 22px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
     padding: 18px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.08);
+    margin-bottom: 22px;
   }
 
   .admin-table td {
-    margin-bottom: 12px;
-    text-align: left;
+    padding: 0;
+    margin-bottom: 14px;
   }
 
   .admin-table td::before {
-    content: attr(data-label) ": ";
-    font-weight: 700;
-    color: #fff;
-  }
-
-  .admin-table td[data-label="Print"]::before,
-  .admin-table td[data-label="Ações"]::before {
+    content: attr(data-label);
     display: block;
-    margin-bottom: 8px;
-  }
-
-  .admin-table td[data-label="Ações"] button {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}body,
-html {
-  overflow-x: hidden;
-}@media (max-width: 768px) {
-  .promoter-screen {
-    width: 100%;
-    overflow-x: hidden;
-    padding: 10px;
-  }
-
-  .admin-table tr {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .admin-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-  }
-
-  .admin-table td {
-    word-break: break-word;
-  }
-}
-* {
-  box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
-}
-
-table {
-  width: 100%;
-}
-body,
-html {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.promoter-screen,
-
-
-
-  .admin-table td {
-    margin-bottom: 12px;
-  }
-
-  .admin-table td::before {
-    content: attr(data-label) ": ";
     font-weight: bold;
-    display: block;
     margin-bottom: 6px;
+    color: white;
   }
 
   .admin-image {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 12px;
+    width: 100%;
+    max-width: 120px;
+    height: 120px;
   }
 
   .admin-table td[data-label="Ações"] button {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
+
+  input,
+  select {
+    height: 58px;
+    font-size: 16px;
+  }
+}
