@@ -12,8 +12,7 @@ function renderLogin() {
       <div class="login-container">
 
         <div class="login-left">
-          <div class="logo-box">Fenixx Produções</div>
-
+         
           <div class="login-content">
             <h1>Conferência de Posts</h1>
             <p>Promoters enviam posts, o admin confere tudo em uma fila única.</p>
