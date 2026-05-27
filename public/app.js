@@ -120,8 +120,8 @@ async function cadastrarPromoter() {
   }
 
   const { error } = await supabaseClient.from("app_users").insert({
-    name: name,
-    email: email,
+    name,
+    email,
     password_hash: password,
     role: "promoter",
     active: true
@@ -133,11 +133,9 @@ async function cadastrarPromoter() {
     return;
   }
 
-  alert("Conta criada com sucesso!");
-const savedUser = localStorage.getItem("user");
-renderLogin();
+  alert("Conta criada com sucesso! Agora faça login.");
+  renderLogin();
 }
-
 function renderPromoterDashboard() {
   app.innerHTML = `
     <section class="promoter-screen">
