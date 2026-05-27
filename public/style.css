@@ -238,3 +238,28 @@ button:hover {
 .login-container {
   border-radius: 32px;
 }
+box-shadow: 0 0 80px rgba(59,130,246,.25);
+
+input:focus {
+  outline: none;
+  border: 1px solid #3b82f6;
+  box-shadow: 0 0 15px rgba(59,130,246,.45);
+}
+.status-approved {
+  color: #22c55e;
+}
+
+.status-rejected {
+  color: #ef4444;
+}
+
+.status-pending {
+  color: #facc15;
+}
+.btn-approve {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.btn-reject {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
