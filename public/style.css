@@ -279,3 +279,12 @@ td[data-label="Status"] {
   color: #ffffff;
   font-weight: 700;
 }
+.auth-card p,
+.auth-card span,
+.auth-card small,
+.auth-card label {
+  color: #000000;
+}
+.auth-card * {
+  color: #000000;
+}
