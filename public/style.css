@@ -209,3 +209,32 @@ button {
   margin-top: 10px;
   background: rgba(255,255,255,0.10);
 }
+.field input {
+  height: 52px;
+  font-size: 15px;
+}
+
+.login-container {
+  transform: translateY(-10px);
+}
+
+.login-screen {
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.35), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.35), transparent 35%),
+    linear-gradient(135deg, #020617, #111827);
+}
+
+button {
+  transition: 0.25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+}
+
+.login-card,
+.login-container {
+  border-radius: 32px;
+}
