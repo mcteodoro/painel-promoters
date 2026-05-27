@@ -248,6 +248,57 @@ async function renderAdminDashboard() {
     return;
   }
 
+  const ranking = {};
+
+  posts.forEach(post => {
+    const promoter = post.promoter_name || post.promoter_email || "Sem nome";
+
+    if (!ranking[promoter]) {
+      ranking[promoter] = 0;
+    }
+
+    ranking[promoter]++;
+  });
+
+  const rankingHtml = Object.entries(ranking)
+    .map(([promoter, total]) => `
+      <div class="ranking-item">
+        <strong>${promoter}</strong>
+        <span>${total} posts</span>
+      </div>
+    `)
+    .join("");
+
+  const postsHtml = posts.map(post => `
+    <tr>
+      <td data-label="Promoter">
+        ${post.promoter_name || post.promoter_email || "Sem nome"}
+      </td>
+
+      <td data-label="Tipo">${post.platform}</td>
+
+      <td data-label="Print">
+        ${
+          post.print_url
+            ? `<img src="${post.print_url}" class="admin-image" />`
+            : `<span>Sem print</span>`
+        }
+      </td>
+
+      <td data-label="Status">${post.status}</td>
+
+      <td data-label="Ações">
+        <button onclick="aprovarPost('${post.id}')">
+          Aprovar
+        </button>
+
+        <button onclick="reprovarPost('${post.id}')">
+          Reprovar
+        </button>
+      </td>
+    </tr>
+  `).join("");
+
   app.innerHTML = `
     <section class="promoter-screen">
       <div class="promoter-card">
@@ -260,54 +311,31 @@ async function renderAdminDashboard() {
 
         <p>Gerencie os posts enviados.</p>
 
+        <div class="ranking-box">
+          <h2>Ranking de Promoters</h2>
+          ${rankingHtml || "<p>Nenhum post enviado ainda.</p>"}
+        </div>
+
         <table class="admin-table">
           <thead>
             <tr>
-  <th>Promoter</th>
-  <th>Tipo</th>
-  <th>Print</th>
-  <th>Status</th>
-  <th>Ações</th>
-</tr>
+              <th>Promoter</th>
+              <th>Tipo</th>
+              <th>Print</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
           </thead>
 
           <tbody>
-            ${posts.map(post => `
-              <tr>
-              <tr>
-<td data-label="Promoter">
-  ${post.promoter_name || post.promoter_email || "Sem nome"}
-</td>
-                <td data-label="Tipo">${post.platform}</td>
-
-                <td data-label="Print">
-                  ${
-                    post.print_url
-                      ? `<img src="${post.print_url}" class="admin-image" />`
-                      : `<span>Sem print</span>`
-                  }
-                </td>
-
-                <td data-label="Status">${post.status}</td>
-
-                <td data-label="Ações">
-                  <button onclick="aprovarPost('${post.id}')">
-                    Aprovar
-                  </button>
-
-                  <button onclick="reprovarPost('${post.id}')">
-                    Reprovar
-                  </button>
-                </td>
-              </tr>
-            `).join("")}
+            ${postsHtml}
           </tbody>
         </table>
+
       </div>
     </section>
   `;
 }
-  
 function logout() {
   localStorage.removeItem("user");
   renderLogin();
