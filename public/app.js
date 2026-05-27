@@ -202,17 +202,20 @@ async function enviarPost() {
   const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/posts/${uploadData.path}`;
 
   const { error } = await supabaseClient.from("posts").insert({
-    promoter_id: user.id,
-    campaign: "Divulgação",
-    platform: platform,
-    post_url: link,
-    print_url: imageUrl,
-    published_at: new Date().toISOString().slice(0, 10),
-    caption: "",
-    notes: "",
-    status: "pending"
-  });
+  promoter_id: user.id,
+  promoter_name: user.name,
+  promoter_email: user.email,
 
+  campaign: "Divulgação",
+  platform: platform,
+  post_url: link,
+  print_url: imageUrl,
+  published_at: new Date().toISOString().slice(0, 10),
+  caption: "",
+  notes: "",
+  status: "pending"
+});
+    
   if (error) {
     console.error(error);
     alert("Erro ao enviar post.");
@@ -220,6 +223,7 @@ async function enviarPost() {
   }
 
   alert("Post enviado para aprovação!");
+renderPromoterDashboard();
 }
 
 async function renderAdminDashboard() {

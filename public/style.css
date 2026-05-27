@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #000000;
+  background: #eef2ff;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -156,7 +156,7 @@ h1, h2, label {
 }
 
 p {
-  color: #cbd5e1;
+  color: #000000;
 }
 
 input,
@@ -238,21 +238,7 @@ button:hover {
 .login-container {
   border-radius: 32px;
 }
-box-shadow: 0 0 80px rgba(59,130,246,.25);
-
-input:focus {
-  outline: none;
-  border: 1px solid #3b82f6;
-  box-shadow: 0 0 15px rgba(59,130,246,.45);
-}
-.status-approved {
-  color: #22c55e;
-}
-
-.status-rejected {
-  color: #ef4444;
-}
-
-.status-pending {
-  color: #facc15;
+.logout-btn {
+  background: #ef4444;
+  margin-bottom: 20px;
 }
