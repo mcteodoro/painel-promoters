@@ -34,6 +34,8 @@ function renderLogin() {
           </div>
 
 <button type="button" onclick="login()">
+  Entrar
+</button>
           <button type="button" class="ghost-btn" onclick="renderCadastro()">
             Criar conta de promoter
           </button>
