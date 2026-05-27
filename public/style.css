@@ -6,21 +6,11 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  background: #000000;
   min-height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background: #050816;
-  background-image:
-    radial-gradient(circle at top, rgba(80, 80, 255, 0.25), transparent 40%),
-    radial-gradient(circle at bottom, rgba(0, 180, 255, 0.15), transparent 35%);
-    
-  font-family: Arial, sans-serif;
-  color: white;
 }
 
 .login-screen,
@@ -124,24 +114,11 @@ button:hover {
   align-items: center;
 }
 
-.promoter-card,
-.admin-card {
-  width: 100%;
-  max-width: 500px;
-
-  padding: 30px;
-
-  background: rgba(15, 15, 25, 0.88);
-
-  border: 1px solid rgba(255,255,255,0.08);
-
+.promoter-card {
+  background: #ffffff;
   border-radius: 28px;
-
-  backdrop-filter: blur(12px);
-
-  box-shadow:
-    0 0 30px rgba(0, 80, 255, 0.25),
-    0 0 80px rgba(0, 0, 0, 0.6);
+  padding: 42px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
 }
 .promoter-screen {
   width: 100%;
@@ -184,17 +161,9 @@ p {
 
 input,
 select {
-  width: 100%;
-  padding: 16px;
-
-  border: none;
-  border-radius: 16px;
-
-  background: rgba(255,255,255,0.08);
-
-  color: white;
-
-  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 input::placeholder {
