@@ -183,7 +183,22 @@ async function renderPromoterDashboard() {
   `;
 }
  
+function showToast(message, type = "success") {
+  let toast = document.getElementById("toast");
 
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast";
+    document.body.appendChild(toast);
+  }
+
+  toast.innerText = message;
+  toast.className = `show toast-${type}`;
+
+  setTimeout(() => {
+    toast.className = "";
+  }, 3000);
+}
 
 async function enviarPost() {
   const submitButton = document.querySelector(".promoter-card button:last-child");
@@ -257,7 +272,9 @@ async function enviarPost() {
     }
 
     showToast("Post enviado para aprovação!", "success");
-
+document.getElementById("post-link").value = "";
+document.getElementById("platform").value = "Feed";
+document.getElementById("image").value = "";
     setTimeout(() => {
       renderPromoterDashboard();
     }, 1200);
@@ -380,7 +397,55 @@ function logout() {
   renderLogin();
 }
 
+async function aprovarPost(id) {
+  const { error } = await supabaseClient
+    .from("posts")
+    .update({ status: "approved" })
+    .eq("id", id);
 
+  if (error) {
+    console.error(error);
+    showToast("Erro ao aprovar post.", "error");
+    return;
+  }
+
+  showToast("Post aprovado!", "success");
+  renderAdminDashboard();
+}
+
+async function reprovarPost(id) {
+  const { error } = await supabaseClient
+    .from("posts")
+    .update({ status: "rejected" })
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    showToast("Erro ao reprovar post.", "error");
+    return;
+  }
+
+  showToast("Post reprovado.", "success");
+  renderAdminDashboard();
+}
+
+function openImage(url) {
+  const modal = document.createElement("div");
+
+  modal.className = "image-modal";
+
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close-modal" onclick="this.parentElement.parentElement.remove()">
+        ×
+      </span>
+
+      <img src="${url}" />
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
 const savedUser = localStorage.getItem("user");
 
 if (savedUser) {
