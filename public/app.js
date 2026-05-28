@@ -232,7 +232,8 @@ submitButton.innerText = "Enviando...";
 
   if (uploadError) {
     console.error(uploadError);
-    alert("Erro ao enviar imagem.");
+    showToast("Post enviado com sucesso!");
+showToast("Erro ao enviar post.", "error");
     return;
   }
 
@@ -255,13 +256,13 @@ submitButton.innerText = "Enviando...";
     
   if (error) {
     console.error(error);
-    alert("Erro ao enviar post.");
+showToast("Erro ao enviar post.", "error");
     submitButton.disabled = false;
 submitButton.innerText = "Enviar para aprovação";
 return;
   }
 
-  alert("Post enviado para aprovação!");
+  showToast("Post enviado para aprovação!", "success");
   submitButton.disabled = false;
 submitButton.innerText = "Enviar para aprovação";
 renderPromoterDashboard();
@@ -414,6 +415,21 @@ async function aprovarPost(id) {
   `;
 
   document.body.appendChild(modal);
+}
+function showToast(message, type = "success") {
+
+  const toast = document.getElementById("toast");
+
+  toast.innerText = message;
+
+  toast.className = `
+    show
+    toast-${type}
+  `;
+
+  setTimeout(() => {
+    toast.className = "";
+  }, 3000);
 }
 }
 const savedUser = localStorage.getItem("user");
