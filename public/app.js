@@ -202,12 +202,14 @@ async function enviarPost() {
       showToast("Cole o link do post.", "error");
       return;
     }
-if (image.size > 5 * 1024 * 1024) {
-  showToast("Imagem muito pesada. Envie uma menor que 5MB.", "error");
-  return;
-}
+
     if (!image) {
       showToast("Escolha uma imagem.", "error");
+      return;
+    }
+
+    if (image.size > 5 * 1024 * 1024) {
+      showToast("Imagem muito pesada. Envie uma menor que 5MB.", "error");
       return;
     }
 
@@ -216,13 +218,21 @@ if (image.size > 5 * 1024 * 1024) {
       return;
     }
 
-const extension = image.name.split(".").pop();
-const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${extension}`;
-   if (uploadError) {
-  console.error(uploadError);
-  showToast(uploadError.message || "Erro ao enviar imagem.", "error");
-  return;
-}
+    const extension = image.name.split(".").pop();
+    const fileName = `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}.${extension}`;
+
+    const { data: uploadData, error: uploadError } =
+      await supabaseClient.storage
+        .from("posts")
+        .upload(fileName, image);
+
+    if (uploadError) {
+      console.error(uploadError);
+      showToast(uploadError.message || "Erro ao enviar imagem.", "error");
+      return;
+    }
 
     const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/posts/${uploadData.path}`;
 
@@ -246,17 +256,17 @@ const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${ext
       return;
     }
 
-  showToast("Post enviado para aprovação!", "success");
+    showToast("Post enviado para aprovação!", "success");
 
-setTimeout(() => {
-  renderPromoterDashboard();
-}, 1200);
+    setTimeout(() => {
+      renderPromoterDashboard();
+    }, 1200);
+
   } catch (error) {
-  console.error(error);
-  showToast(error.message || "Erro inesperado ao enviar.", "error");
-}
+    console.error(error);
+    showToast(error.message || "Erro inesperado ao enviar.", "error");
 
-finally {
+  } finally {
     submitButton.disabled = false;
     submitButton.innerText = "Enviar para aprovação";
   }
@@ -369,55 +379,7 @@ function logout() {
   localStorage.removeItem("user");
   renderLogin();
 }
-async function renderPromoterDashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
 
-  const { data: meusPosts } = await supabaseClient
-    .from("posts")
-    .select("*")
-    .eq("promoter_id", user.id);
-
-  const totalPosts = meusPosts ? meusPosts.length : 0;
-
-  app.innerHTML = `
-    <section class="promoter-screen">
-      <div class="promoter-card">
-
-        <button onclick="logout()" class="logout-btn">
-          Sair
-        </button>
-
-        <h1>Área do Promoter</h1>
-
-        <div class="ranking-box">
-          <strong>Meus envios</strong>
-          <span>${totalPosts} posts</span>
-        </div>
-
-        <p>Envie prints dos posts para aprovação.</p>
-
-        <input
-          type="text"
-          id="post-link"
-          placeholder="Link do post"
-        />
-
-        <select id="platform">
-          <option value="Feed">Feed</option>
-          <option value="Story">Story</option>
-          <option value="Reels">Reels</option>
-        </select>
-
-        <input type="file" id="image" />
-
-        <button onclick="enviarPost()">
-          Enviar para aprovação
-        </button>
-
-      </div>
-    </section>
-  `;
-}
 
 const savedUser = localStorage.getItem("user");
 
