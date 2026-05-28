@@ -313,7 +313,7 @@ showToast("Erro ao enviar post.", "error");    return;
 
     ranking[promoter]++;
   });
-antigos.forEach(post => {
+(antigos || []).forEach(post => {
   const promoter = post.promoter || "Sem nome";
 
   if (!ranking[promoter]) {
