@@ -216,18 +216,13 @@ if (image.size > 5 * 1024 * 1024) {
       return;
     }
 
-    const fileName = `${Date.now()}-${image.name}`;
-
-    const { data: uploadData, error: uploadError } =
-      await supabaseClient.storage
-        .from("posts")
-        .upload(fileName, image);
-
-    if (uploadError) {
-      console.error(uploadError);
-      showToast("Erro ao enviar imagem.", "error");
-      return;
-    }
+const extension = image.name.split(".").pop();
+const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${extension}`;
+   if (uploadError) {
+  console.error(uploadError);
+  showToast(uploadError.message || "Erro ao enviar imagem.", "error");
+  return;
+}
 
     const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/posts/${uploadData.path}`;
 
@@ -251,14 +246,17 @@ if (image.size > 5 * 1024 * 1024) {
       return;
     }
 
-    showToast("Post enviado para aprovação!", "success");
-    renderPromoterDashboard();
+  showToast("Post enviado para aprovação!", "success");
 
+setTimeout(() => {
+  renderPromoterDashboard();
+}, 1200);
   } catch (error) {
-    console.error(error);
-    showToast("Erro inesperado ao enviar.", "error");
+  console.error(error);
+  showToast(error.message || "Erro inesperado ao enviar.", "error");
+}
 
-  } finally {
+finally {
     submitButton.disabled = false;
     submitButton.innerText = "Enviar para aprovação";
   }
