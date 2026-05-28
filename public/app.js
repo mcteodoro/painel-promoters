@@ -136,18 +136,31 @@ async function cadastrarPromoter() {
   alert("Conta criada com sucesso! Agora faça login.");
   renderLogin();
 }
-function renderPromoterDashboard() {
-  app.innerHTML = `
-    <section class="promoter-screen">
-      <div class="promoter-card">
+async function renderPromoterDashboard() { 
+  const user = JSON.parse(localStorage.getItem("user"));
 
-        <button onclick="logout()" class="logout-btn">
-          Sair
-        </button>
+const { data: meusPosts } = await supabaseClient
+  .from("posts")
+  .select("*")
+  .eq("promoter_id", user.id);
 
-        <h1>Área do Promoter</h1>
+const totalPosts = meusPosts ? meusPosts.length : 0;
+   app.innerHTML = `
+<section class="promoter-screen">
+  <div class="promoter-card">
 
-        <p>Envie prints dos posts para aprovação.</p>
+    <button onclick="logout()" class="logout-btn">
+      Sair
+    </button>
+
+<h1>Área do Promoter</h1>
+
+<div class="ranking-box">
+  <strong>Meus envios</strong>
+  <span>${totalPosts} posts</span>
+</div>
+
+<p>Envie prints dos posts para aprovação.</p>
 
         <input
           type="text"
