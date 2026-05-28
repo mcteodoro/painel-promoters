@@ -293,6 +293,9 @@ async function renderAdminDashboard() {
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
+const { data: antigos } = await supabaseClient
+  .from("promoter_posts")
+  .select("*");
 
   if (error) {
     console.error(error);
@@ -310,7 +313,15 @@ showToast("Erro ao enviar post.", "error");    return;
 
     ranking[promoter]++;
   });
+antigos.forEach(post => {
+  const promoter = post.promoter || "Sem nome";
 
+  if (!ranking[promoter]) {
+    ranking[promoter] = 0;
+  }
+
+  ranking[promoter] += post.quantidade || 1;
+});
   const rankingHtml = Object.entries(ranking)
     .map(([promoter, total]) => `
       <div class="ranking-item">
