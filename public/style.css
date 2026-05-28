@@ -257,7 +257,7 @@ button:hover {
 }
 
 .login-actions button {
-  width: 100%;
+  flex: 1;
   padding: 14px;
   border: none;
   border-radius: 14px;
@@ -266,7 +266,6 @@ button:hover {
   cursor: pointer;
   color: white;
   background: linear-gradient(90deg, #2563eb, #9333ea);
-  margin-top: 12px;
 }
 .login-card {
   width: 100%;
