@@ -199,8 +199,15 @@ submitButton.innerText = "Enviando...";
   const platform = document.getElementById("platform").value;
   const image = document.getElementById("image").files[0];
 
-   if (!image.type.startsWith("image/")) {
-  showToast("Envie uma imagem JPG ou PNG, não vídeo.", "error");
+   if (!image) {
+  showToast("Escolha uma imagem.", "error");
+  submitButton.disabled = false;
+  submitButton.innerText = "Enviar para aprovação";
+  return;
+}
+
+if (!image.type.startsWith("image/")) {
+  showToast("Envie uma imagem JPG ou PNG.", "error");
   submitButton.disabled = false;
   submitButton.innerText = "Enviar para aprovação";
   return;
