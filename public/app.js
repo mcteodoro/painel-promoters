@@ -134,31 +134,32 @@ showToast("Erro ao cadastrar promoter.", "error");    return;
 
 showToast("Conta criada com sucesso!");  renderLogin();
 }
-async function renderPromoterDashboard() { 
+async function renderPromoterDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
-const { data: meusPosts } = await supabaseClient
-  .from("posts")
-  .select("*")
-  .eq("promoter_id", user.id);
+  const { data: meusPosts } = await supabaseClient
+    .from("posts")
+    .select("*")
+    .eq("promoter_id", user.id);
 
-const totalPosts = meusPosts ? meusPosts.length : 0;
-   app.innerHTML = `
-<section class="promoter-screen">
-  <div class="promoter-card">
+  const totalPosts = meusPosts ? meusPosts.length : 0;
 
-    <button onclick="logout()" class="logout-btn">
-      Sair
-    </button>
+  app.innerHTML = `
+    <section class="promoter-screen">
+      <div class="promoter-card">
 
-<h1>Área do Promoter</h1>
+        <button onclick="logout()" class="logout-btn">
+          Sair
+        </button>
 
-<div class="ranking-box">
-  <strong>Meus envios</strong>
-  <span>${totalPosts} posts</span>
-</div>
+        <h1>Área do Promoter</h1>
 
-<p>Envie prints dos posts para aprovação.</p>
+        <div class="ranking-box">
+          <strong>Meus envios</strong>
+          <span>${totalPosts} posts</span>
+        </div>
+
+        <p>Envie prints dos posts para aprovação.</p>
 
         <input
           type="text"
@@ -181,6 +182,7 @@ const totalPosts = meusPosts ? meusPosts.length : 0;
       </div>
     </section>
   `;
+}
   supabaseClient
   .channel("posts-realtime")
   .on(
@@ -195,7 +197,7 @@ const totalPosts = meusPosts ? meusPosts.length : 0;
     }
   )
   .subscribe();
-}
+
 
 async function enviarPost() {
   const submitButton = document.querySelector(
@@ -392,48 +394,56 @@ function logout() {
   localStorage.removeItem("user");
   renderLogin();
 }
+async function renderPromoterDashboard() {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-async function aprovarPost(id) {
-  await supabaseClient
+  const { data: meusPosts } = await supabaseClient
     .from("posts")
-    .update({ status: "approved" })
-    .eq("id", id);
+    .select("*")
+    .eq("promoter_id", user.id);
 
-  renderAdminDashboard ();
-  
- function openImage(url) {
-  const modal = document.createElement("div");
+  const totalPosts = meusPosts ? meusPosts.length : 0;
 
-  modal.className = "image-modal";
+  app.innerHTML = `
+    <section class="promoter-screen">
+      <div class="promoter-card">
 
-  modal.innerHTML = `
-    <div class="modal-content">
-      <span class="close-modal" onclick="this.parentElement.parentElement.remove()">
-        ×
-      </span>
+        <button onclick="logout()" class="logout-btn">
+          Sair
+        </button>
 
-      <img src="${url}" />
-    </div>
+        <h1>Área do Promoter</h1>
+
+        <div class="ranking-box">
+          <strong>Meus envios</strong>
+          <span>${totalPosts} posts</span>
+        </div>
+
+        <p>Envie prints dos posts para aprovação.</p>
+
+        <input
+          type="text"
+          id="post-link"
+          placeholder="Link do post"
+        />
+
+        <select id="platform">
+          <option value="Feed">Feed</option>
+          <option value="Story">Story</option>
+          <option value="Reels">Reels</option>
+        </select>
+
+        <input type="file" id="image" />
+
+        <button onclick="enviarPost()">
+          Enviar para aprovação
+        </button>
+
+      </div>
+    </section>
   `;
-
-  document.body.appendChild(modal);
 }
-function showToast(message, type = "success") {
 
-  const toast = document.getElementById("toast");
-
-  toast.innerText = message;
-
-  toast.className = `
-    show
-    toast-${type}
-  `;
-
-  setTimeout(() => {
-    toast.className = "";
-  }, 3000);
-}
-}
 const savedUser = localStorage.getItem("user");
 
 if (savedUser) {
