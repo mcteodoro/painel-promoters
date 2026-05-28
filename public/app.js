@@ -184,6 +184,20 @@ const totalPosts = meusPosts ? meusPosts.length : 0;
       </div>
     </section>
   `;
+  supabaseClient
+  .channel("posts-realtime")
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "posts"
+    },
+    () => {
+      renderAdminDashboard();
+    }
+  )
+  .subscribe();
 }
 
 async function enviarPost() {
@@ -356,6 +370,20 @@ async function renderAdminDashboard() {
       </div>
     </section>
   `;
+  supabaseClient
+  .channel("posts-realtime")
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "posts"
+    },
+    () => {
+      renderAdminDashboard();
+    }
+  )
+  .subscribe();
 }
 function logout() {
   localStorage.removeItem("user");
