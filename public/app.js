@@ -204,11 +204,12 @@ submitButton.innerText = "Enviando...";
     return;
   }
 
-  if (!image) {
-    showToast("Escolha uma imagem.", "error");
-    return;
-  }
-
+ if (!image.type.startsWith("image/")) {
+  showToast("Envie uma imagem JPG ou PNG, não vídeo.", "error");
+  submitButton.disabled = false;
+  submitButton.innerText = "Enviar para aprovação";
+  return;
+}
   const fileName = `${Date.now()}-${image.name}`;
 
   const { data: uploadData, error: uploadError } =
