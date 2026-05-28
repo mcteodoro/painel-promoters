@@ -173,8 +173,7 @@ async function renderPromoterDashboard() {
           <option value="Reels">Reels</option>
         </select>
 
-        <input type="file" id="image" />
-
+<input type="file" id="image" accept="image/*" />
         <button onclick="enviarPost()">
           Enviar para aprovação
         </button>
@@ -187,83 +186,83 @@ async function renderPromoterDashboard() {
 
 
 async function enviarPost() {
-  const submitButton = document.querySelector(
-  '.promoter-card button:last-child'
-);
+  const submitButton = document.querySelector(".promoter-card button:last-child");
 
-submitButton.disabled = true;
-submitButton.innerText = "Enviando...";
-  const user = JSON.parse(localStorage.getItem("user"));
+  try {
+    submitButton.disabled = true;
+    submitButton.innerText = "Enviando...";
 
-  const link = document.getElementById("post-link").value.trim();
-  const platform = document.getElementById("platform").value;
-  const image = document.getElementById("image").files[0];
+    const user = JSON.parse(localStorage.getItem("user"));
 
-   if (!image) {
-  showToast("Escolha uma imagem.", "error");
-  submitButton.disabled = false;
-  submitButton.innerText = "Enviar para aprovação";
+    const link = document.getElementById("post-link").value.trim();
+    const platform = document.getElementById("platform").value;
+    const image = document.getElementById("image").files[0];
+
+    if (!link) {
+      showToast("Cole o link do post.", "error");
+      return;
+    }
+if (image.size > 5 * 1024 * 1024) {
+  showToast("Imagem muito pesada. Envie uma menor que 5MB.", "error");
   return;
 }
+    if (!image) {
+      showToast("Escolha uma imagem.", "error");
+      return;
+    }
 
-if (!image.type.startsWith("image/")) {
-  showToast("Envie uma imagem JPG ou PNG.", "error");
-  submitButton.disabled = false;
-  submitButton.innerText = "Enviar para aprovação";
-  return;
-}
+    if (!image.type.startsWith("image/")) {
+      showToast("Envie uma imagem JPG ou PNG.", "error");
+      return;
+    }
 
-  if (!link) {
-    showToast("Cole o link do post.", "error");
-    return;
-  }
+    const fileName = `${Date.now()}-${image.name}`;
 
+    const { data: uploadData, error: uploadError } =
+      await supabaseClient.storage
+        .from("posts")
+        .upload(fileName, image);
 
-  const fileName = `${Date.now()}-${image.name}`;
+    if (uploadError) {
+      console.error(uploadError);
+      showToast("Erro ao enviar imagem.", "error");
+      return;
+    }
 
-  const { data: uploadData, error: uploadError } =
-    await supabaseClient.storage
-      .from("posts")
-      .upload(fileName, image);
+    const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/posts/${uploadData.path}`;
 
- if (uploadError) {
-  console.error(uploadError);
-  showToast("Erro ao enviar imagem.", "error");
-  submitButton.disabled = false;
-  submitButton.innerText = "Enviar para aprovação";
-  return;
-}
+    const { error } = await supabaseClient.from("posts").insert({
+      promoter_id: user.id,
+      promoter_name: user.name,
+      promoter_email: user.email,
+      campaign: "Divulgação",
+      platform,
+      post_url: link,
+      print_url: imageUrl,
+      published_at: new Date().toISOString().slice(0, 10),
+      caption: "",
+      notes: "",
+      status: "pending"
+    });
 
-  const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/posts/${uploadData.path}`;
+    if (error) {
+      console.error(error);
+      showToast("Erro ao salvar post.", "error");
+      return;
+    }
 
-  const { error } = await supabaseClient.from("posts").insert({
-  promoter_id: user.id,
-  promoter_name: user.name,
-  promoter_email: user.email,
+    showToast("Post enviado para aprovação!", "success");
+    renderPromoterDashboard();
 
-  campaign: "Divulgação",
-  platform: platform,
-  post_url: link,
-  print_url: imageUrl,
-  published_at: new Date().toISOString().slice(0, 10),
-  caption: "",
-  notes: "",
-  status: "pending"
-}); 
-  if (error) {
+  } catch (error) {
     console.error(error);
-showToast("Erro ao enviar post.", "error");
-submitButton.disabled = false;
-submitButton.innerText = "Enviar para aprovação";
-return;
+    showToast("Erro inesperado ao enviar.", "error");
+
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerText = "Enviar para aprovação";
   }
-
-  showToast("Post enviado para aprovação!", "success");
-submitButton.disabled = false;
-submitButton.innerText = "Enviar para aprovação";
-renderPromoterDashboard();
 }
-
 async function renderAdminDashboard() {
   const { data: posts, error } = await supabaseClient
     .from("posts")
