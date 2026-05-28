@@ -199,17 +199,19 @@ submitButton.innerText = "Enviando...";
   const platform = document.getElementById("platform").value;
   const image = document.getElementById("image").files[0];
 
-  if (!link) {
-    showToast("Cole o link do post.", "error");
-    return;
-  }
-
- if (!image.type.startsWith("image/")) {
+   if (!image.type.startsWith("image/")) {
   showToast("Envie uma imagem JPG ou PNG, não vídeo.", "error");
   submitButton.disabled = false;
   submitButton.innerText = "Enviar para aprovação";
   return;
 }
+
+  if (!link) {
+    showToast("Cole o link do post.", "error");
+    return;
+  }
+
+
   const fileName = `${Date.now()}-${image.name}`;
 
   const { data: uploadData, error: uploadError } =
@@ -217,11 +219,13 @@ submitButton.innerText = "Enviando...";
       .from("posts")
       .upload(fileName, image);
 
-  if (uploadError) {
-    console.error(uploadError);
-showToast("Erro ao enviar post.", "error");
-    return;
-  }
+ if (uploadError) {
+  console.error(uploadError);
+  showToast("Erro ao enviar imagem.", "error");
+  submitButton.disabled = false;
+  submitButton.innerText = "Enviar para aprovação";
+  return;
+}
 
   const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/posts/${uploadData.path}`;
 
