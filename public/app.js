@@ -229,7 +229,6 @@ submitButton.innerText = "Enviando...";
 
   if (uploadError) {
     console.error(uploadError);
-showToast("Post enviado com sucesso!");
 showToast("Erro ao enviar post.", "error");
     return;
   }
@@ -249,18 +248,17 @@ showToast("Erro ao enviar post.", "error");
   caption: "",
   notes: "",
   status: "pending"
-});
-    
+}); 
   if (error) {
     console.error(error);
 showToast("Erro ao enviar post.", "error");
-    submitButton.disabled = false;
+submitButton.disabled = false;
 submitButton.innerText = "Enviar para aprovação";
 return;
   }
 
   showToast("Post enviado para aprovação!", "success");
-  submitButton.disabled = false;
+submitButton.disabled = false;
 submitButton.innerText = "Enviar para aprovação";
 renderPromoterDashboard();
 }
@@ -367,7 +365,7 @@ showToast("Erro ao enviar post.", "error");    return;
       </div>
     </section>
   `;
-  supabaseClient
+ supabaseClient
   .channel("posts-realtime")
   .on(
     "postgres_changes",
@@ -377,7 +375,15 @@ showToast("Erro ao enviar post.", "error");    return;
       table: "posts"
     },
     () => {
-      renderAdminDashboard();
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (!user) return;
+
+      if (user.role === "admin") {
+        renderAdminDashboard();
+      } else {
+        renderPromoterDashboard();
+      }
     }
   )
   .subscribe();
