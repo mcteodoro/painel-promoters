@@ -97,8 +97,7 @@ function renderCadastro() {
         <input id="cadastro-email" type="email" placeholder="E-mail" />
         <input id="cadastro-senha" type="password" placeholder="Senha" />
 
-     <div class="login-actions">
-
+<div class="login-actions">
   <button type="button" onclick="cadastrarPromoter()">
     Cadastrar
   </button>
@@ -106,7 +105,6 @@ function renderCadastro() {
   <button type="button" class="ghost-btn" onclick="renderLogin()">
     Voltar para login
   </button>
-
 </div>
     </section>
   `;
@@ -299,7 +297,11 @@ async function renderAdminDashboard() {
       <td data-label="Print">
         ${
           post.print_url
-            ? `<img src="${post.print_url}" class="admin-image" />`
+            ? `<img 
+  src="${post.print_url}" 
+  class="admin-image"
+  onclick="openImage('${post.print_url}')"
+/>`
             : `<span>Sem print</span>`
         }
       </td>
@@ -368,6 +370,22 @@ async function aprovarPost(id) {
 
   renderAdminDashboard ();
   
- 
+ function openImage(url) {
+  const modal = document.createElement("div");
+
+  modal.className = "image-modal";
+
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close-modal" onclick="this.parentElement.parentElement.remove()">
+        ×
+      </span>
+
+      <img src="${url}" />
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
 }
  renderLogin();
