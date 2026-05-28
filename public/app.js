@@ -304,26 +304,29 @@ showToast("Erro ao enviar post.", "error");    return;
 
   const ranking = {};
 
-  posts.forEach(post => {
-const promoter = (post.promoter || "Sem nome")
-  .toLowerCase()
-  .replace("@", "")
-  .trim();
-    if (!ranking[promoter]) {
-      ranking[promoter] = 0;
-    }
+posts.forEach(post => {
+  const promoter = String(
+    post.promoter_name ||
+    post.promoter_email ||
+    "Sem nome"
+  )
+    .toLowerCase()
+    .replace("@", "")
+    .trim();
 
-    ranking[promoter]++;
-  });
+  if (!ranking[promoter]) {
+    ranking[promoter] = 0;
+  }
+
+  ranking[promoter]++;
+});
 (antigos || []).forEach(post => {
-const promoter = (
-  post.promoter_name ||
-  post.promoter_email ||
-  "Sem nome"
-)
-.toLowerCase()
-.replace("@", "")
-.trim();
+  const promoter = String(
+    post.promoter || "Sem nome"
+  )
+    .toLowerCase()
+    .replace("@", "")
+    .trim();
 
   if (!ranking[promoter]) {
     ranking[promoter] = 0;
@@ -331,6 +334,7 @@ const promoter = (
 
   ranking[promoter] += post.quantidade || 1;
 });
+
   const rankingHtml = Object.entries(ranking)
     .map(([promoter, total]) => `
       <div class="ranking-item">
