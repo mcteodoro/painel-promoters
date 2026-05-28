@@ -97,14 +97,17 @@ function renderCadastro() {
         <input id="cadastro-email" type="email" placeholder="E-mail" />
         <input id="cadastro-senha" type="password" placeholder="Senha" />
 
-        <button type="button" onclick="cadastrarPromoter()">
-          Cadastrar
-        </button>
+     <div class="login-actions">
 
-        <button type="button" class="ghost-btn" onclick="renderLogin()">
-          Voltar para login
-        </button>
-      </div>
+  <button type="button" onclick="cadastrarPromoter()">
+    Cadastrar
+  </button>
+
+  <button type="button" class="ghost-btn" onclick="renderLogin()">
+    Voltar para login
+  </button>
+
+</div>
     </section>
   `;
 }
