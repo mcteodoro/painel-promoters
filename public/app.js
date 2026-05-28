@@ -305,8 +305,10 @@ showToast("Erro ao enviar post.", "error");    return;
   const ranking = {};
 
   posts.forEach(post => {
-    const promoter = post.promoter_name || post.promoter_email || "Sem nome";
-
+const promoter = (post.promoter || "Sem nome")
+  .toLowerCase()
+  .replace("@", "")
+  .trim();
     if (!ranking[promoter]) {
       ranking[promoter] = 0;
     }
@@ -314,7 +316,14 @@ showToast("Erro ao enviar post.", "error");    return;
     ranking[promoter]++;
   });
 (antigos || []).forEach(post => {
-  const promoter = post.promoter || "Sem nome";
+const promoter = (
+  post.promoter_name ||
+  post.promoter_email ||
+  "Sem nome"
+)
+.toLowerCase()
+.replace("@", "")
+.trim();
 
   if (!ranking[promoter]) {
     ranking[promoter] = 0;
