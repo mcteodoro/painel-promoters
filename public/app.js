@@ -73,8 +73,7 @@ async function login() {
   console.log(error);
 
   if (!data) {
-    alert("E-mail ou senha inválidos.");
-    return;
+showToast("E-mail ou senha inválidos", "error");    return;
   }
 
   localStorage.setItem("user", JSON.stringify(data));
@@ -116,7 +115,7 @@ async function cadastrarPromoter() {
   const password = document.getElementById("cadastro-senha").value.trim();
 
   if (!name || !email || !password) {
-    alert("Preencha todos os campos.");
+    showToast("Preencha todos os campos.", "error");
     return;
   }
 
@@ -130,12 +129,10 @@ async function cadastrarPromoter() {
 
   if (error) {
     console.error(error);
-    alert("Erro ao cadastrar promoter.");
-    return;
+showToast("Erro ao cadastrar promoter.", "error");    return;
   }
 
-  alert("Conta criada com sucesso! Agora faça login.");
-  renderLogin();
+showToast("Conta criada com sucesso!");  renderLogin();
 }
 async function renderPromoterDashboard() { 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -214,12 +211,12 @@ submitButton.innerText = "Enviando...";
   const image = document.getElementById("image").files[0];
 
   if (!link) {
-    alert("Cole o link do post.");
+    showToast("Cole o link do post.", "error");
     return;
   }
 
   if (!image) {
-    alert("Escolha uma imagem.");
+    showToast("Escolha uma imagem.", "error");
     return;
   }
 
@@ -232,7 +229,7 @@ submitButton.innerText = "Enviando...";
 
   if (uploadError) {
     console.error(uploadError);
-    showToast("Post enviado com sucesso!");
+showToast("Post enviado com sucesso!");
 showToast("Erro ao enviar post.", "error");
     return;
   }
@@ -276,8 +273,7 @@ async function renderAdminDashboard() {
 
   if (error) {
     console.error(error);
-    alert("Erro ao carregar posts.");
-    return;
+showToast("Erro ao enviar post.", "error");    return;
   }
 
   const ranking = {};
