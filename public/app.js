@@ -416,4 +416,17 @@ async function aprovarPost(id) {
   document.body.appendChild(modal);
 }
 }
- renderLogin();
+const savedUser = localStorage.getItem("user");
+
+if (savedUser) {
+  const user = JSON.parse(savedUser);
+
+  if (user.role === "admin") {
+    renderAdminDashboard();
+  } else {
+    renderPromoterDashboard();
+  }
+
+} else {
+  renderLogin();
+}
