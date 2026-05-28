@@ -183,20 +183,7 @@ async function renderPromoterDashboard() {
     </section>
   `;
 }
-  supabaseClient
-  .channel("posts-realtime")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "posts"
-    },
-    () => {
-      renderAdminDashboard();
-    }
-  )
-  .subscribe();
+ 
 
 
 async function enviarPost() {
@@ -367,28 +354,7 @@ showToast("Erro ao enviar post.", "error");    return;
       </div>
     </section>
   `;
- supabaseClient
-  .channel("posts-realtime")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "posts"
-    },
-    () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-
-      if (!user) return;
-
-      if (user.role === "admin") {
-        renderAdminDashboard();
-      } else {
-        renderPromoterDashboard();
-      }
-    }
-  )
-  .subscribe();
+ 
 }
 function logout() {
   localStorage.removeItem("user");
