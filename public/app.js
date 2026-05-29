@@ -329,11 +329,13 @@ posts.forEach(post => {
 });
 (antigos || []).forEach(post => {
    const promoter = String(
-    post.promoter || "Sem nome"
-  )
-    .toLowerCase()
-    .replace("@", "")
-    .trim();
+  post.instagram_user ||
+  post.promoter ||
+  "Sem nome"
+)
+  .toLowerCase()
+  .replace("@", "")
+  .trim();
 
   if (!ranking[promoter]) {
     ranking[promoter] = 0;
