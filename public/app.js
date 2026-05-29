@@ -95,7 +95,7 @@ function renderCadastro() {
         <input id="cadastro-nome" type="text" placeholder="Nome completo" />
         <input id="cadastro-email" type="email" placeholder="E-mail" />
         <input id="cadastro-senha" type="password" placeholder="Senha" />
-
+<input id="cadastro-instagram" type="text" placeholder="@instagram" />
 <div class="login-actions">
   <button type="button" onclick="cadastrarPromoter()">
     Cadastrar
@@ -113,7 +113,12 @@ async function cadastrarPromoter() {
   const name = document.getElementById("cadastro-nome").value.trim();
   const email = document.getElementById("cadastro-email").value.trim().toLowerCase();
   const password = document.getElementById("cadastro-senha").value.trim();
-
+const instagramUser = document
+  .getElementById("cadastro-instagram")
+  .value
+  .trim()
+  .toLowerCase()
+  .replace("@", "");
   if (!name || !email || !password) {
     showToast("Preencha todos os campos.", "error");
     return;
@@ -124,8 +129,8 @@ async function cadastrarPromoter() {
     email,
     password_hash: password,
     role: "promoter",
-    active: true
-  });
+active: true,
+instagram_user: instagramUser  });
 
   if (error) {
     console.error(error);
