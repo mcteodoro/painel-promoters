@@ -328,7 +328,7 @@ posts.forEach(post => {
   ranking[promoter]++;
 });
 (antigos || []).forEach(post => {
-  const promoter = String(
+   const promoter = String(
     post.promoter || "Sem nome"
   )
     .toLowerCase()
@@ -341,9 +341,8 @@ posts.forEach(post => {
 
   ranking[promoter] += post.quantidade || 1;
 });
-
-  const rankingHtml = Object.entries(ranking)
-    .map(([promoter, total]) => `
+const rankingHtml = Object.entries(ranking)
+  .sort((a, b) => b[1] - a[1])    .map(([promoter, total]) => `
       <div class="ranking-item">
         <strong>${promoter}</strong>
         <span>${total} posts</span>
