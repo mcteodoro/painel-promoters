@@ -328,20 +328,21 @@ posts.forEach(post => {
   ranking[promoter]++;
 });
 (antigos || []).forEach(post => {
-   const promoter = String(
-  post.instagram_user ||
-  post.promoter ||
-  "Sem nome"
-)
-  .toLowerCase()
-  .replace("@", "")
-  .trim();
+ const promoter = String(
+    post.instagram_user ||
+    post.promoter ||
+    "Sem nome"
+  )
+    .toLowerCase()
+    .replace("@", "")
+    .trim();
 
   if (!ranking[promoter]) {
     ranking[promoter] = 0;
   }
 
-ranking[promoter] = (ranking[promoter] || 0) + (post.quantidade || 1);});
+  ranking[promoter] += post.quantidade || 1;
+});
 const rankingHtml = Object.entries(ranking)
   .sort((a, b) => b[1] - a[1])    .map(([promoter, total]) => `
       <div class="ranking-item">
