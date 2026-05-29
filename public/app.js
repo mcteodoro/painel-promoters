@@ -328,7 +328,8 @@ posts.forEach(post => {
   ranking[promoter]++;
 });
 (antigos || []).forEach(post => {
- const promoter = String(
+
+const promoter = String(
     post.instagram_user ||
     post.promoter ||
     "Sem nome"
