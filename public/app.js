@@ -93,9 +93,9 @@ function renderCadastro() {
         <p>Cadastro para promoters enviarem posts.</p>
 
         <input id="cadastro-nome" type="text" placeholder="Nome completo" />
+        <input id="cadastro-instagram" type="text" placeholder="@instagram" />
         <input id="cadastro-email" type="email" placeholder="E-mail" />
         <input id="cadastro-senha" type="password" placeholder="Senha" />
-<input id="cadastro-instagram" type="text" placeholder="@instagram" />
 <div class="login-actions">
   <button type="button" onclick="cadastrarPromoter()">
     Cadastrar
@@ -260,6 +260,7 @@ async function enviarPost() {
       promoter_id: user.id,
       promoter_name: user.name,
       promoter_email: user.email,
+      instagram_user: user.instagram_user,
       campaign: "Divulgação",
       platform,
       post_url: link,
@@ -311,9 +312,10 @@ showToast("Erro ao enviar post.", "error");    return;
 
 posts.forEach(post => {
   const promoter = String(
-    post.promoter_name ||
-    post.promoter_email ||
-    "Sem nome"
+  post.instagram_user ||
+  post.promoter_name ||
+  post.promoter_email ||
+  "Sem nome"
   )
     .toLowerCase()
     .replace("@", "")
