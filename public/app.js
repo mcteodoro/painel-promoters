@@ -301,12 +301,16 @@ async function renderAdminDashboard() {
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
-const { data: antigos, error: antigosError } = await supabaseClient
+const { data: antigos } = await supabaseClient
   .from("promoter_posts")
   .select("*");
 
-console.log("ANTIGOS", antigos);
-console.log("ERRO ANTIGOS", antigosError);
+  if (error) {
+    console.error(error);
+showToast("Erro ao enviar post.", "error");    return;
+  }
+
+  const ranking = {};
 
 posts.forEach(post => {
   const promoter = String(
