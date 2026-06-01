@@ -150,9 +150,6 @@ const { data: antigos, error: antigosError } = await supabaseClient
   .from("promoter_posts")
   .select("*");
 
-console.log("ANTIGOS", antigos);
-console.log("ERRO ANTIGOS", antigosError);
-  const totalPosts = meusPosts ? meusPosts.length : 0;
 
   app.innerHTML = `
     <section class="promoter-screen">
@@ -304,16 +301,12 @@ async function renderAdminDashboard() {
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
-const { data: antigos } = await supabaseClient
+const { data: antigos, error: antigosError } = await supabaseClient
   .from("promoter_posts")
   .select("*");
 
-  if (error) {
-    console.error(error);
-showToast("Erro ao enviar post.", "error");    return;
-  }
-
-  const ranking = {};
+console.log("ANTIGOS", antigos);
+console.log("ERRO ANTIGOS", antigosError);
 
 posts.forEach(post => {
   const promoter = String(
