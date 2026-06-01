@@ -208,7 +208,7 @@ function showToast(message, type = "success") {
 }
 
 async function enviarPost() {
-  const submitButton = document.querySelector(".promoter-card button:last-child");
+  const submitButton = document.querySelector(".send-btn");
 
   try {
     submitButton.disabled = true;
