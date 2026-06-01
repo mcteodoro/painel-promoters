@@ -146,7 +146,12 @@ async function renderPromoterDashboard() {
     .from("posts")
     .select("*")
     .eq("promoter_id", user.id);
+const { data: antigos, error: antigosError } = await supabaseClient
+  .from("promoter_posts")
+  .select("*");
 
+console.log("ANTIGOS", antigos);
+console.log("ERRO ANTIGOS", antigosError);
   const totalPosts = meusPosts ? meusPosts.length : 0;
 
   app.innerHTML = `
