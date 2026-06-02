@@ -146,6 +146,8 @@ async function renderPromoterDashboard() {
     .from("posts")
     .select("*")
     .eq("promoter_id", user.id);
+    const totalPosts = meusPosts ? meusPosts.length : 0;
+
 const { data: antigos, error: antigosError } = await supabaseClient
   .from("promoter_posts")
   .select("*");
