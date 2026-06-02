@@ -356,7 +356,7 @@ promoter = aliases[promoter] || promoter;
 
   ranking[promoter]++;
 });
-console.log("ANTIGOS", antigos);
+
 (antigos || []).forEach(post => {
 let promoter = String(    post.instagram_user ||
     post.promoter ||
