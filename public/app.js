@@ -332,8 +332,13 @@ const aliases = {
   "lorraiineroh": "lorraiineroh",
 
   "tatiane aparecida da silva": "tatimariiano",
-  "tatimariiano": "tatimariiano"
+  "tatimariiano": "tatimariiano",
+
+"eduardo carraro": "edu_carraro0",
+  "edu_carraro0": "edu_carraro0",
+  "edu_carraroo": "edu_carraro0",
 };
+
 posts.forEach(post => {
 let promoter = String(  post.instagram_user ||
   post.promoter_name ||
