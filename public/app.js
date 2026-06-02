@@ -337,6 +337,10 @@ const aliases = {
 "eduardo carraro": "edu_carraro0",
   "edu_carraro0": "edu_carraro0",
   "edu_carraroo": "edu_carraro0",
+
+  "lara cavalcanti": "laracavalcanti.0",
+  "laracavalcanti.0": "laracavalcanti.0"
+  
 };
 
 posts.forEach(post => {
