@@ -184,8 +184,8 @@ const { data: antigos, error: antigosError } = await supabaseClient
 
 <input type="file" id="image" accept="image/*" />
        <button class="send-btn" onclick="enviarPost()">
-  Enviar para aprovação
-</button>
+ 
+       Enviar post</button>
 
       </div>
     </section>
@@ -277,7 +277,7 @@ async function enviarPost() {
       published_at: new Date().toISOString().slice(0, 10),
       caption: "",
       notes: "",
-      status: "pending"
+      status: "approved"
     });
 
     if (error) {
@@ -286,7 +286,7 @@ async function enviarPost() {
       return;
     }
 
-    showToast("Post enviado para aprovação!", "success");
+showToast("Post contabilizado!", "success");
 document.getElementById("post-link").value = "";
 document.getElementById("platform").value = "Feed";
 document.getElementById("image").value = "";
@@ -300,7 +300,7 @@ document.getElementById("image").value = "";
 
   } finally {
     submitButton.disabled = false;
-    submitButton.innerText = "Enviar para aprovação";
+    submitButton.innerText = "Enviar post";
   }
 }
 async function renderAdminDashboard() {
@@ -401,17 +401,7 @@ const rankingHtml = Object.entries(ranking)
         }
       </td>
 
-      <td data-label="Status">${post.status}</td>
-
-      <td data-label="Ações">
-        <button onclick="aprovarPost('${post.id}')">
-          Aprovar
-        </button>
-
-        <button onclick="reprovarPost('${post.id}')">
-          Reprovar
-        </button>
-      </td>
+     
     </tr>
   `).join("");
 
@@ -438,8 +428,7 @@ const rankingHtml = Object.entries(ranking)
               <th>Promoter</th>
               <th>Tipo</th>
               <th>Print</th>
-              <th>Status</th>
-              <th>Ações</th>
+            
             </tr>
           </thead>
 
