@@ -344,6 +344,7 @@ posts.forEach(post => {
     .toLowerCase()
     .replace("@", "")
     .trim();
+promoter = aliases[promoter] || promoter;
 
   if (!ranking[promoter]) {
     ranking[promoter] = 0;
