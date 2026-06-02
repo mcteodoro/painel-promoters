@@ -318,7 +318,22 @@ showToast("Erro ao enviar post.", "error");    return;
   }
 
   const ranking = {};
+const aliases = {
+  "julia vilalva mancano": "ju.vilalva",
+  "ju.vilalva": "ju.vilalva",
 
+  "lais santos canovas": "laiscanovass",
+  "laiscanovass": "laiscanovass",
+
+  "daniele rebeca santos gonçalves": "danielerebeca5",
+  "danielerebeca5": "danielerebeca5",
+
+  "rogéria loraine faria do nascimento": "lorraiineroh",
+  "lorraiineroh": "lorraiineroh",
+
+  "tatiane aparecida da silva": "tatimariiano",
+  "tatimariiano": "tatimariiano"
+};
 posts.forEach(post => {
   const promoter = String(
   post.instagram_user ||
@@ -337,7 +352,6 @@ posts.forEach(post => {
   ranking[promoter]++;
 });
 (antigos || []).forEach(post => {
-
 const promoter = String(
     post.instagram_user ||
     post.promoter ||
@@ -346,7 +360,7 @@ const promoter = String(
     .toLowerCase()
     .replace("@", "")
     .trim();
-
+promoter = aliases[promoter] || promoter;
   if (!ranking[promoter]) {
     ranking[promoter] = 0;
   }
