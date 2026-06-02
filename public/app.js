@@ -183,9 +183,9 @@ const { data: antigos, error: antigosError } = await supabaseClient
         </select>
 
 <input type="file" id="image" accept="image/*" />
-        <button onclick="enviarPost()">
-          Enviar para aprovação
-        </button>
+       <button class="send-btn" onclick="enviarPost()">
+  Enviar para aprovação
+</button>
 
       </div>
     </section>
@@ -210,7 +210,12 @@ function showToast(message, type = "success") {
 }
 
 async function enviarPost() {
-  const submitButton = document.querySelector(".send-btn");
+ const submitButton = document.querySelector(".send-btn");
+
+  if (!submitButton) {
+    showToast("Botão de envio não encontrado.", "error");
+    return;
+  }
 
   try {
     submitButton.disabled = true;
