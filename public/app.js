@@ -335,8 +335,7 @@ const aliases = {
   "tatimariiano": "tatimariiano"
 };
 posts.forEach(post => {
-  const promoter = String(
-  post.instagram_user ||
+let promoter = String(  post.instagram_user ||
   post.promoter_name ||
   post.promoter_email ||
   "Sem nome"
@@ -353,8 +352,7 @@ promoter = aliases[promoter] || promoter;
   ranking[promoter]++;
 });
 (antigos || []).forEach(post => {
-const promoter = String(
-    post.instagram_user ||
+let promoter = String(    post.instagram_user ||
     post.promoter ||
     "Sem nome"
   )
