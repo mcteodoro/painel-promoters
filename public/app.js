@@ -339,8 +339,8 @@ const aliases = {
   "edu_carraroo": "edu_carraro0",
 
   "lara cavalcanti": "laracavalcanti.0",
-  "laracavalcanti.0": "laracavalcanti.0"
-  
+  "laracavalcanti.0": "laracavalcanti.0",
+   "aguenaa": "bianca.alguma",
 };
 
 posts.forEach(post => {
